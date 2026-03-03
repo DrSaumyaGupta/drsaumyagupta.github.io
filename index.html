@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Saumya Gupta — Human-Centered Mobility Researcher</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --cream: #f5f0e8;
+      --sand: #e8dfc8;
+      --terracotta: #c4622d;
+      --rust: #a34a1e;
+      --deep: #1a1410;
+      --mid: #3d2e20;
+      --muted: #7a6a58;
+      --accent-blue: #2b5f8e;
+      --accent-teal: #1e7b6e;
+      --white: #fdfaf5;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--deep); overflow-x: hidden; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: rgba(245, 240, 232, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(196, 98, 45, 0.15);
+    }
+    .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.25rem; color: var(--terracotta); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--terracotta); }
+
+    #hero {
+      min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
+      padding-top: 5rem; position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(196,98,45,0.07) 0%, transparent 70%),
+                  radial-gradient(ellipse 40% 60% at 10% 90%, rgba(43,95,142,0.06) 0%, transparent 60%);
+    }
+    .hero-grid-pattern {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(196,98,45,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(196,98,45,0.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+    }
+    .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 6rem 4rem 6rem 8rem; position: relative; z-index: 2; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 0.6rem; font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 1.8rem; }
+    .hero-tag::before { content: ''; width: 28px; height: 2px; background: var(--terracotta); }
+    h1 { font-family: 'DM Serif Display', serif; font-size: clamp(3rem, 5vw, 5.5rem); line-height: 1.0; letter-spacing: -0.03em; color: var(--deep); margin-bottom: 0.3rem; }
+    h1 em { font-style: italic; color: var(--terracotta); }
+    .hero-subtitle { font-family: 'DM Serif Display', serif; font-size: clamp(1rem, 1.8vw, 1.4rem); font-style: italic; color: var(--muted); margin-bottom: 2rem; line-height: 1.5; }
+    .hero-mission { font-size: 1.05rem; font-weight: 300; color: var(--mid); line-height: 1.75; max-width: 480px; margin-bottom: 2.8rem; border-left: 3px solid var(--terracotta); padding-left: 1.2rem; }
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary { font-family: 'Syne', sans-serif; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.9rem 2rem; background: var(--terracotta); color: var(--white); border: none; cursor: pointer; text-decoration: none; transition: background 0.2s, transform 0.15s; display: inline-block; }
+    .btn-primary:hover { background: var(--rust); transform: translateY(-2px); }
+    .btn-outline { font-family: 'Syne', sans-serif; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.9rem 2rem; background: transparent; color: var(--mid); border: 2px solid var(--mid); cursor: pointer; text-decoration: none; transition: all 0.2s; display: inline-block; }
+    .btn-outline:hover { border-color: var(--terracotta); color: var(--terracotta); transform: translateY(-2px); }
+
+    .hero-right { display: flex; flex-direction: column; justify-content: center; align-items: flex-end; padding: 6rem 8rem 6rem 2rem; position: relative; z-index: 2; gap: 2rem; }
+    .hero-stat-card { background: var(--white); border: 1px solid rgba(196,98,45,0.15); padding: 1.6rem 2rem; width: 220px; box-shadow: 4px 4px 0 rgba(196,98,45,0.12); animation: floatIn 0.8s ease forwards; opacity: 0; transform: translateY(20px); }
+    .hero-stat-card:nth-child(1) { animation-delay: 0.3s; }
+    .hero-stat-card:nth-child(2) { animation-delay: 0.5s; margin-left: -40px; }
+    .hero-stat-card:nth-child(3) { animation-delay: 0.7s; }
+    @keyframes floatIn { to { opacity: 1; transform: translateY(0); } }
+    .stat-num { font-family: 'DM Serif Display', serif; font-size: 2.8rem; color: var(--terracotta); line-height: 1; margin-bottom: 0.3rem; }
+    .stat-label { font-size: 0.78rem; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+
+    section { padding: 7rem 8rem; }
+    section:nth-child(even) { background: var(--white); }
+    .section-header { display: flex; align-items: baseline; gap: 1.5rem; margin-bottom: 4rem; }
+    .section-num { font-family: 'DM Serif Display', serif; font-size: 1rem; font-style: italic; color: var(--terracotta); opacity: 0.7; }
+    h2 { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 3.5vw, 3rem); letter-spacing: -0.03em; color: var(--deep); line-height: 1.1; }
+    h2 em { font-style: italic; color: var(--terracotta); }
+
+    #about .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .about-text p { font-size: 1.05rem; font-weight: 300; color: var(--mid); line-height: 1.85; margin-bottom: 1.2rem; }
+    .about-text p strong { color: var(--deep); font-weight: 500; }
+    .pillars { display: flex; flex-direction: column; gap: 1.2rem; }
+    .pillar { padding: 1.5rem 1.8rem; border: 1px solid rgba(196,98,45,0.18); position: relative; overflow: hidden; transition: box-shadow 0.2s, transform 0.2s; }
+    .pillar::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--terracotta); }
+    .pillar:hover { box-shadow: 4px 4px 0 rgba(196,98,45,0.15); transform: translateX(3px); }
+    .pillar-icon { font-size: 1.4rem; margin-bottom: 0.5rem; }
+    .pillar h3 { font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 0.4rem; }
+    .pillar p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+    #publications .pub-list { display: flex; flex-direction: column; gap: 1.5rem; }
+    .pub-card { display: grid; grid-template-columns: 60px 1fr; gap: 1.5rem; padding: 1.8rem 2rem; background: var(--cream); border: 1px solid rgba(196,98,45,0.12); transition: box-shadow 0.2s; }
+    .pub-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+    .pub-year { font-family: 'DM Serif Display', serif; font-size: 1.6rem; font-style: italic; color: var(--terracotta); opacity: 0.6; line-height: 1; }
+    .pub-title { font-family: 'Syne', sans-serif; font-size: 0.92rem; font-weight: 600; color: var(--deep); margin-bottom: 0.4rem; line-height: 1.4; }
+    .pub-venue { font-size: 0.82rem; font-style: italic; color: var(--accent-blue); margin-bottom: 0.3rem; }
+    .pub-authors { font-size: 0.78rem; color: var(--muted); }
+    .pub-badge { display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.6rem; margin-left: 0.5rem; background: var(--terracotta); color: white; }
+    .pub-badge.submitted { background: var(--accent-teal); }
+    .pub-badge.prep { background: var(--muted); }
+
+    #experience .timeline { position: relative; padding-left: 2.5rem; }
+    .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--terracotta), rgba(196,98,45,0.1)); }
+    .timeline-item { position: relative; margin-bottom: 3.5rem; }
+    .timeline-dot { position: absolute; left: -2.9rem; top: 0.4rem; width: 12px; height: 12px; background: var(--terracotta); border: 3px solid var(--cream); border-radius: 50%; }
+    .timeline-meta { font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 0.4rem; }
+    .timeline-title { font-family: 'DM Serif Display', serif; font-size: 1.4rem; letter-spacing: -0.02em; color: var(--deep); margin-bottom: 0.2rem; }
+    .timeline-org { font-size: 0.9rem; color: var(--muted); margin-bottom: 1rem; }
+    .timeline-points { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .timeline-points li { font-size: 0.9rem; font-weight: 300; color: var(--mid); line-height: 1.65; padding-left: 1rem; position: relative; }
+    .timeline-points li::before { content: '→'; position: absolute; left: 0; color: var(--terracotta); font-size: 0.75rem; top: 0.05rem; }
+
+    #skills .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .skill-group { padding: 2rem; border: 1px solid rgba(196,98,45,0.15); background: var(--cream); }
+    .skill-group-title { font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 1.2rem; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .skill-tag { font-size: 0.78rem; font-weight: 400; padding: 0.35rem 0.8rem; background: var(--white); border: 1px solid rgba(61,46,32,0.15); color: var(--mid); transition: all 0.15s; }
+    .skill-tag:hover { background: var(--terracotta); color: white; border-color: var(--terracotta); cursor: default; }
+
+    #grants .grant-card { background: linear-gradient(135deg, var(--deep) 0%, #2d1f10 100%); color: var(--cream); padding: 3rem 4rem; display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: center; margin-bottom: 2rem; position: relative; overflow: hidden; }
+    .grant-card::after { content: 'NASA'; position: absolute; right: -20px; bottom: -30px; font-family: 'DM Serif Display', serif; font-size: 8rem; font-style: italic; color: rgba(196,98,45,0.08); pointer-events: none; }
+    .grant-agency { font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 0.8rem; }
+    .grant-title { font-family: 'DM Serif Display', serif; font-size: 1.8rem; letter-spacing: -0.02em; color: var(--cream); margin-bottom: 0.6rem; line-height: 1.2; }
+    .grant-role { font-size: 0.88rem; color: rgba(245,240,232,0.65); }
+    .grant-amount { font-family: 'DM Serif Display', serif; font-size: 3rem; color: var(--terracotta); text-align: right; line-height: 1; }
+    .grant-amount-label { font-size: 0.75rem; color: rgba(245,240,232,0.5); text-align: right; margin-top: 0.3rem; }
+
+    #contact { background: var(--deep); }
+    #contact h2, #contact .section-num { color: var(--cream); }
+    #contact h2 em { color: var(--terracotta); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .contact-text p { font-size: 1.05rem; font-weight: 300; color: rgba(245,240,232,0.7); line-height: 1.8; margin-bottom: 2rem; }
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-link { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.5rem; border: 1px solid rgba(245,240,232,0.1); text-decoration: none; color: var(--cream); transition: all 0.2s; }
+    .contact-link:hover { background: rgba(196,98,45,0.15); border-color: rgba(196,98,45,0.4); }
+    .contact-link-icon { font-size: 1.2rem; }
+    .contact-link-label { font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--terracotta); display: block; margin-bottom: 0.1rem; }
+    .contact-link-val { font-size: 0.85rem; color: rgba(245,240,232,0.65); }
+
+    footer { background: var(--deep); border-top: 1px solid rgba(245,240,232,0.08); padding: 1.5rem 8rem; display: flex; justify-content: space-between; align-items: center; }
+    footer p { font-size: 0.78rem; color: rgba(245,240,232,0.35); }
+
+    .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 1100px) {
+      nav { padding: 1.2rem 2rem; }
+      section { padding: 5rem 3rem; }
+      #hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 8rem 3rem 3rem; }
+      .hero-right { display: none; }
+      #about .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      #skills .skills-grid { grid-template-columns: 1fr 1fr; }
+      .grant-card { grid-template-columns: 1fr; }
+      footer { padding: 1.5rem 3rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Saumya Gupta</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#publications">Research</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#grants">Grants</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-pattern"></div>
+  <div class="hero-left">
+    <span class="hero-tag">Postdoctoral Research Associate · UCF</span>
+    <h1>Saumya<br><em>Gupta</em></h1>
+    <p class="hero-subtitle">Human-Centered Autonomy &amp; Mobility Researcher</p>
+    <p class="hero-mission">
+      I translate human behavior into systems that protect people — bridging engineering rigor, human psychology, and storytelling to shape urban mobility that is technically advanced, socially inclusive, and safe.
+    </p>
+    <div class="hero-ctas">
+      <a href="https://scholar.google.com/citations?user=nePcSDMAAAAJ&hl=en" target="_blank" class="btn-primary">Google Scholar</a>
+      <a href="#publications" class="btn-outline">View Research</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stat-card">
+      <div class="stat-num">7+</div>
+      <div class="stat-label">Publications</div>
+    </div>
+    <div class="hero-stat-card">
+      <div class="stat-num">$50K</div>
+      <div class="stat-label">NASA MPLAN Grant (PI)</div>
+    </div>
+    <div class="hero-stat-card">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Degrees · EE, CE &amp; IoT</div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-header fade-up">
+    <span class="section-num">01</span>
+    <h2>About <em>My Work</em></h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text fade-up">
+      <p>I am a <strong>Postdoctoral Research Associate</strong> in Industrial Engineering &amp; Management Systems at the University of Central Florida, working at the intersection of human behavior modeling, digital twins, and intelligent transportation systems.</p>
+      <p>My research designs and validates <strong>simulation environments and digital twin frameworks</strong> to enhance Air Traffic Management for Advanced Air Mobility (AAM) — while keeping human experience at the center of every system.</p>
+      <p>Previously, I spent two years as a Data Analyst at Insight Transportation Consulting, applying travel demand modeling to real transit projects across LA Metro, Metra Rail, and others. I bring both <strong>academic rigor and industry practice</strong> to every problem I touch.</p>
+      <p>My Ph.D. from UCF (Civil Engineering, Smart City focus) and M.S. from UNLV (Electrical &amp; Computer Engineering) give me an unusually broad lens — I think in systems, feel in stories, and build with data.</p>
+    </div>
+    <div class="pillars fade-up">
+      <div class="pillar">
+        <div class="pillar-icon">🧠</div>
+        <h3>Human Behavior Modeling</h3>
+        <p>Pedestrian trajectory simulation, social interaction dynamics, receding horizon optimization, and generative modeling of human movement in shared spaces.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">✈️</div>
+        <h3>Advanced Air Mobility</h3>
+        <p>Digital twin environments for UAM/AAM, air-to-ground communication simulation, synthetic trajectory generation for UAS, and GPS-denied drone operations.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">🏙️</div>
+        <h3>Intelligent Urban Systems</h3>
+        <p>Travel demand modeling, multi-modal transit analysis, GTFS real-time processing, and data-driven urban planning for safer, more equitable cities.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">📊</div>
+        <h3>Data Science &amp; ML</h3>
+        <p>LSTM networks, reinforcement learning, NLP, optimal control theory, and statistical modeling applied to transportation and mobility datasets.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="publications">
+  <div class="section-header fade-up">
+    <span class="section-num">02</span>
+    <h2>Research &amp; <em>Publications</em></h2>
+  </div>
+  <div class="pub-list">
+    <div class="pub-card fade-up">
+      <div class="pub-year">2025</div>
+      <div>
+        <div class="pub-title">A Modular Ray-Tracing Framework for Simulating Air-to-Ground Communication in Urban Environments</div>
+        <div class="pub-venue">IEEE / AIAA DATC · 44th Digital Avionics Systems Conference</div>
+        <div class="pub-authors">Saumya Gupta &amp; Adan Vela</div>
+      </div>
+    </div>
+    <div class="pub-card fade-up">
+      <div class="pub-year">2024</div>
+      <div>
+        <div class="pub-title">A Machine Learning Based Approach for Smart and Automated Data Collection: Applications in Transportation</div>
+        <div class="pub-venue">Transportation in Developing Economies, 10(1), 15</div>
+        <div class="pub-authors">Shaurya Agarwal, Saumya Gupta, Pushkin Kachroo &amp; Nilesh Dhingra</div>
+      </div>
+    </div>
+    <div class="pub-card fade-up">
+      <div class="pub-year">2023</div>
+      <div>
+        <div class="pub-title">HISS: A Human Trajectory Planning Simulation Framework for Shared Space</div>
+        <div class="pub-venue">IEEE Open Journal of Intelligent Transportation Systems</div>
+        <div class="pub-authors">Saumya Gupta, Mohamed H. Zaki &amp; Adan Vela</div>
+      </div>
+    </div>
+    <div class="pub-card fade-up">
+      <div class="pub-year">2022</div>
+      <div>
+        <div class="pub-title">Generative Modeling of Pedestrian Behavior: A Receding Horizon Optimization-Based Trajectory Planning Approach</div>
+        <div class="pub-venue">IEEE Access, Vol. 10, pp. 81624–81641</div>
+        <div class="pub-authors">Saumya Gupta, Mohamed H. Zaki &amp; Adan Vela</div>
+      </div>
+    </div>
+    <div class="pub-card fade-up">
+      <div class="pub-year">2017</div>
+      <div>
+        <div class="pub-title">Optimal Control for Congestion Pricing: Theory, Simulation and Evaluation</div>
+        <div class="pub-venue">IEEE Transactions on Intelligent Transportation Systems, 18(5), pp. 1234–1240</div>
+        <div class="pub-authors">Pushkin Kachroo, Saumya Gupta, Shaurya Agarwal &amp; Kaan Ozbay</div>
+      </div>
+    </div>
+    <div class="pub-card fade-up">
+      <div class="pub-year">2026</div>
+      <div>
+        <div class="pub-title">Data-Driven Synthetic Trajectory Generation for Small Uncrewed Aircraft Systems <span class="pub-badge submitted">Submitted</span></div>
+        <div class="pub-venue">IEEE / 45th DASC Conference</div>
+        <div class="pub-authors">Saumya Gupta &amp; Adan Vela</div>
+      </div>
+    </div>
+    <div class="pub-card fade-up">
+      <div class="pub-year">2026</div>
+      <div>
+        <div class="pub-title">Generation of Synthetic Cities for AAM Research <span class="pub-badge submitted">Submitted</span></div>
+        <div class="pub-venue">IEEE / 45th DASC Conference</div>
+        <div class="pub-authors">Saumya Gupta &amp; Adan Vela</div>
+      </div>
+    </div>
+    <div class="pub-card fade-up">
+      <div class="pub-year">TBD</div>
+      <div>
+        <div class="pub-title">Trajectory-Aware Route Maintenance Framework for Enhanced Pedestrian Networks <span class="pub-badge prep">In Preparation</span></div>
+        <div class="pub-venue">IEEE</div>
+        <div class="pub-authors">Saumya Gupta &amp; Mohamed H. Zaki</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="section-header fade-up">
+    <span class="section-num">03</span>
+    <h2>Professional <em>Experience</em></h2>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item fade-up">
+      <div class="timeline-dot"></div>
+      <div class="timeline-meta">Feb 2025 – Present</div>
+      <div class="timeline-title">Postdoctoral Research Associate</div>
+      <div class="timeline-org">Industrial Engineering &amp; Management Systems · University of Central Florida, Orlando</div>
+      <ul class="timeline-points">
+        <li>Designing and validating simulation and digital twin environments for Advanced Air Mobility Air Traffic Management</li>
+        <li>Conducting human–machine interaction research on trajectory evolution and interaction dynamics in shared airspace</li>
+        <li>Mentoring graduate and undergraduate students on NASA-related projects, including GPS-denied drone operations</li>
+        <li>PI on $50K NASA MPLAN grant: <em>A Digital Twin for AAM Communication Channels</em></li>
+        <li>Contributing to competitive proposals (NASA MPLAN, USRC) and journal/conference publications</li>
+      </ul>
+    </div>
+    <div class="timeline-item fade-up">
+      <div class="timeline-dot"></div>
+      <div class="timeline-meta">Mar 2023 – Mar 2025</div>
+      <div class="timeline-title">Data Analyst</div>
+      <div class="timeline-org">Insight Transportation Consulting · Orlando, FL</div>
+      <ul class="timeline-points">
+        <li>Travel demand modeling for major transit projects: Inglewood Transit Connector, LA Metro Purple Line BRT, Metra Rail System</li>
+        <li>Developed Python-based GTFS Real-Time Processing tool for live transit data — trip cancellations, arrival times, dynamic GTFS updates</li>
+        <li>Multi-modal transportation analysis (auto, bus, rail) across BCT Transit Development Plan and Sunshine Corridor studies</li>
+        <li>Ridership forecasting, on-board survey analysis, and schedule optimization using APC data</li>
+      </ul>
+    </div>
+    <div class="timeline-item fade-up">
+      <div class="timeline-dot"></div>
+      <div class="timeline-meta">2018 – 2022</div>
+      <div class="timeline-title">Graduate Research &amp; Teaching Assistant</div>
+      <div class="timeline-org">University of Central Florida · Orlando, FL</div>
+      <ul class="timeline-points">
+        <li>SAFER-SIM (Tier-1 UTC) funded research on active mobility and urban safety</li>
+        <li>Developed receding horizon optimization-based trajectory planning framework for pedestrian simulation in urban environments</li>
+        <li>Trajectory data processing, human behavior analysis, and simulation of realistic urban planning scenarios</li>
+      </ul>
+    </div>
+    <div class="timeline-item fade-up">
+      <div class="timeline-dot"></div>
+      <div class="timeline-meta">May – Nov 2022</div>
+      <div class="timeline-title">Sustainability Intern</div>
+      <div class="timeline-org">Orange County Public Works · Orlando, FL</div>
+      <ul class="timeline-points">
+        <li>Contributed to Orange County Sustainable Operations and Resilience Action Plan</li>
+        <li>Drafted white paper and training materials based on FDOT, FHWA, and TRB best practices</li>
+      </ul>
+    </div>
+    <div class="timeline-item fade-up">
+      <div class="timeline-dot"></div>
+      <div class="timeline-meta">Jan 2014 – Aug 2016</div>
+      <div class="timeline-title">Research Assistant</div>
+      <div class="timeline-org">Transportation Research Center · UNLV, Las Vegas, NV</div>
+      <ul class="timeline-points">
+        <li>Crash data analysis, occupant protection research, and ML applications in transportation safety</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="grants">
+  <div class="section-header fade-up">
+    <span class="section-num">04</span>
+    <h2>Funded <em>Research</em></h2>
+  </div>
+  <div class="grant-card fade-up">
+    <div>
+      <div class="grant-agency">NASA MPLAN · MUREP Partnership Learning Annual Notification 2025</div>
+      <div class="grant-title">A Digital Twin for AAM Communication Channels</div>
+      <div class="grant-role">Role: Principal Investigator (90%) · University of Central Florida</div>
+    </div>
+    <div>
+      <div class="grant-amount">$50K</div>
+      <div class="grant-amount-label">Total Award</div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="section-header fade-up">
+    <span class="section-num">05</span>
+    <h2>Technical <em>Skills</em></h2>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-group fade-up">
+      <div class="skill-group-title">Programming &amp; Libraries</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Python</span><span class="skill-tag">MATLAB</span><span class="skill-tag">R</span>
+        <span class="skill-tag">PyTorch</span><span class="skill-tag">Scikit-learn</span>
+        <span class="skill-tag">Pandas</span><span class="skill-tag">Matplotlib</span><span class="skill-tag">Seaborn</span>
+      </div>
+    </div>
+    <div class="skill-group fade-up">
+      <div class="skill-group-title">Machine Learning &amp; Modeling</div>
+      <div class="skill-tags">
+        <span class="skill-tag">LSTM</span><span class="skill-tag">Reinforcement Learning</span>
+        <span class="skill-tag">NLP</span><span class="skill-tag">Regression</span>
+        <span class="skill-tag">Optimal Control</span><span class="skill-tag">Receding Horizon</span>
+        <span class="skill-tag">Mixed Integer Programming</span>
+      </div>
+    </div>
+    <div class="skill-group fade-up">
+      <div class="skill-group-title">Simulation Tools</div>
+      <div class="skill-tags">
+        <span class="skill-tag">VISSIM</span><span class="skill-tag">SUMO</span>
+        <span class="skill-tag">OMNeT++</span><span class="skill-tag">STOPS</span>
+        <span class="skill-tag">Digital Twins</span><span class="skill-tag">Ray Tracing</span>
+      </div>
+    </div>
+    <div class="skill-group fade-up">
+      <div class="skill-group-title">Visualization &amp; GIS</div>
+      <div class="skill-tags">
+        <span class="skill-tag">ArcGIS</span><span class="skill-tag">Tableau</span>
+        <span class="skill-tag">GTFSed</span><span class="skill-tag">Cube</span>
+        <span class="skill-tag">Google Analytics</span>
+      </div>
+    </div>
+    <div class="skill-group fade-up">
+      <div class="skill-group-title">Transportation Domain</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Travel Demand Modeling</span><span class="skill-tag">GTFS Real-Time</span>
+        <span class="skill-tag">Air Traffic Management</span><span class="skill-tag">UAM / AAM</span>
+        <span class="skill-tag">Multi-modal Analysis</span><span class="skill-tag">Pedestrian Simulation</span>
+      </div>
+    </div>
+    <div class="skill-group fade-up">
+      <div class="skill-group-title">Research &amp; Communication</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Grant Writing</span><span class="skill-tag">Technical Documentation</span>
+        <span class="skill-tag">Proposal Development</span><span class="skill-tag">LaTeX</span>
+        <span class="skill-tag">Peer Review</span><span class="skill-tag">Mentoring</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-header fade-up">
+    <span class="section-num">06</span>
+    <h2>Get in <em>Touch</em></h2>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-text fade-up">
+      <p>I'm open to research collaborations, faculty positions, and conversations about human-centered mobility, AAM, intelligent transportation systems, and urban safety. If my work resonates with what you're building, I'd love to connect.</p>
+      <a href="mailto:your.email@ucf.edu" class="btn-primary">Send an Email</a>
+    </div>
+    <div class="contact-links fade-up">
+      <a href="https://scholar.google.com/citations?user=nePcSDMAAAAJ&hl=en" target="_blank" class="contact-link">
+        <span class="contact-link-icon">📚</span>
+        <div><span class="contact-link-label">Google Scholar</span><span class="contact-link-val">Publications &amp; citation record</span></div>
+      </a>
+      <a href="https://stars.library.ucf.edu/etd2020/1381/" target="_blank" class="contact-link">
+        <span class="contact-link-icon">🎓</span>
+        <div><span class="contact-link-label">Ph.D. Dissertation</span><span class="contact-link-val">Generative Modeling of Human Behavior · UCF</span></div>
+      </a>
+      <a href="https://digitalscholarship.unlv.edu/thesesdissertations/2781/" target="_blank" class="contact-link">
+        <span class="contact-link-icon">📐</span>
+        <div><span class="contact-link-label">M.S. Thesis</span><span class="contact-link-val">Complex Traffic Network Modeling · UNLV</span></div>
+      </a>
+      <a href="https://www.herox.com/blog/1133-nasa-funds-over-15m-in-planning-prizes-to-minority" target="_blank" class="contact-link">
+        <span class="contact-link-icon">🚀</span>
+        <div><span class="contact-link-label">NASA MPLAN Grant</span><span class="contact-link-val">Digital Twin for AAM · $50K Award</span></div>
+      </a>
+      <a href="https://linkedin.com" target="_blank" class="contact-link">
+        <span class="contact-link-icon">💼</span>
+        <div><span class="contact-link-label">LinkedIn</span><span class="contact-link-val">Update with your LinkedIn URL</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Saumya Gupta · Human-Centered Mobility Research</p>
+  <p>UCF · Industrial Engineering &amp; Management Systems</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

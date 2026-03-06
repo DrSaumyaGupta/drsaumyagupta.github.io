@@ -7,170 +7,259 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --cream: #f5f0e8;
-      --sand: #e8dfc8;
-      --terracotta: #c4622d;
-      --rust: #a34a1e;
-      --deep: #1a1410;
-      --mid: #3d2e20;
-      --muted: #7a6a58;
-      --accent-blue: #2b5f8e;
-      --accent-teal: #1e7b6e;
-      --white: #fdfaf5;
+      --cream: #f5f0e8; --terracotta: #c4622d; --rust: #a34a1e;
+      --deep: #1a1410; --mid: #3d2e20; --muted: #7a6a58;
+      --accent-blue: #2b5f8e; --accent-teal: #1e7b6e; --white: #fdfaf5;
     }
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--deep); overflow-x: hidden; }
 
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1.2rem 4rem;
-      background: rgba(245, 240, 232, 0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(196, 98, 45, 0.15);
-    }
-    .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.25rem; color: var(--terracotta); }
-    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-    .nav-links a { font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); text-decoration: none; transition: color 0.2s; }
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 4rem; background: rgba(245,240,232,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(196,98,45,0.15); }
+    .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--terracotta); text-decoration: none; cursor: pointer; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); text-decoration: none; transition: color 0.2s; cursor: pointer; }
     .nav-links a:hover { color: var(--terracotta); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--mid); transition: all 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-nav { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--cream); z-index: 99; flex-direction: column; align-items: center; justify-content: center; gap: 2.2rem; }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { font-family: 'DM Serif Display', serif; font-size: 1.8rem; font-style: italic; color: var(--deep); text-decoration: none; transition: color 0.2s; cursor: pointer; }
+    .mobile-nav a:hover { color: var(--terracotta); }
 
-    #hero {
-      min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
-      padding-top: 5rem; position: relative; overflow: hidden;
-    }
-    .hero-bg {
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(196,98,45,0.07) 0%, transparent 70%),
-                  radial-gradient(ellipse 40% 60% at 10% 90%, rgba(43,95,142,0.06) 0%, transparent 60%);
-    }
-    .hero-grid-pattern {
-      position: absolute; inset: 0;
-      background-image: linear-gradient(rgba(196,98,45,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(196,98,45,0.06) 1px, transparent 1px);
-      background-size: 60px 60px;
-      mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
-    }
-    .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 6rem 4rem 6rem 8rem; position: relative; z-index: 2; }
-    .hero-tag { display: inline-flex; align-items: center; gap: 0.6rem; font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 1.8rem; }
-    .hero-tag::before { content: ''; width: 28px; height: 2px; background: var(--terracotta); }
-    h1 { font-family: 'DM Serif Display', serif; font-size: clamp(3rem, 5vw, 5.5rem); line-height: 1.0; letter-spacing: -0.03em; color: var(--deep); margin-bottom: 0.3rem; }
-    h1 em { font-style: italic; color: var(--terracotta); }
-    .hero-subtitle { font-family: 'DM Serif Display', serif; font-size: clamp(1rem, 1.8vw, 1.4rem); font-style: italic; color: var(--muted); margin-bottom: 2rem; line-height: 1.5; }
-    .hero-mission { font-size: 1.05rem; font-weight: 300; color: var(--mid); line-height: 1.75; max-width: 480px; margin-bottom: 2.8rem; border-left: 3px solid var(--terracotta); padding-left: 1.2rem; }
-    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .btn-primary { font-family: 'Syne', sans-serif; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.9rem 2rem; background: var(--terracotta); color: var(--white); border: none; cursor: pointer; text-decoration: none; transition: background 0.2s, transform 0.15s; display: inline-block; }
-    .btn-primary:hover { background: var(--rust); transform: translateY(-2px); }
-    .btn-outline { font-family: 'Syne', sans-serif; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.9rem 2rem; background: transparent; color: var(--mid); border: 2px solid var(--mid); cursor: pointer; text-decoration: none; transition: all 0.2s; display: inline-block; }
-    .btn-outline:hover { border-color: var(--terracotta); color: var(--terracotta); transform: translateY(-2px); }
+    /* PAGES */
+    .page { display: none; }
+    .page.active { display: block; }
 
-    .hero-right { display: flex; flex-direction: column; justify-content: center; align-items: flex-end; padding: 6rem 8rem 6rem 2rem; position: relative; z-index: 2; gap: 2rem; }
-    .hero-stat-card { background: var(--white); border: 1px solid rgba(196,98,45,0.15); padding: 1.6rem 2rem; width: 220px; box-shadow: 4px 4px 0 rgba(196,98,45,0.12); animation: floatIn 0.8s ease forwards; opacity: 0; transform: translateY(20px); }
-    .hero-stat-card:nth-child(1) { animation-delay: 0.3s; }
-    .hero-stat-card:nth-child(2) { animation-delay: 0.5s; margin-left: -40px; }
-    .hero-stat-card:nth-child(3) { animation-delay: 0.7s; }
-    @keyframes floatIn { to { opacity: 1; transform: translateY(0); } }
-    .stat-num { font-family: 'DM Serif Display', serif; font-size: 2.8rem; color: var(--terracotta); line-height: 1; margin-bottom: 0.3rem; }
-    .stat-label { font-size: 0.78rem; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
-
-    section { padding: 7rem 8rem; }
-    section:nth-child(even) { background: var(--white); }
-    .section-header { display: flex; align-items: baseline; gap: 1.5rem; margin-bottom: 4rem; }
+    /* SECTIONS */
+    section { padding: 6rem 8rem; }
+    section.alt { background: var(--white); }
+    .section-header { display: flex; align-items: baseline; gap: 1.5rem; margin-bottom: 3.5rem; }
     .section-num { font-family: 'DM Serif Display', serif; font-size: 1rem; font-style: italic; color: var(--terracotta); opacity: 0.7; }
-    h2 { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 3.5vw, 3rem); letter-spacing: -0.03em; color: var(--deep); line-height: 1.1; }
+    h2 { font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem, 3.5vw, 3rem); letter-spacing: -0.03em; color: var(--deep); line-height: 1.1; }
     h2 em { font-style: italic; color: var(--terracotta); }
 
-    #about .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-    .about-text p { font-size: 1.05rem; font-weight: 300; color: var(--mid); line-height: 1.85; margin-bottom: 1.2rem; }
+    /* HERO */
+    #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 4rem; position: relative; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(196,98,45,0.07) 0%, transparent 70%), radial-gradient(ellipse 40% 60% at 10% 90%, rgba(43,95,142,0.06) 0%, transparent 60%); }
+    .hero-grid-pattern { position: absolute; inset: 0; background-image: linear-gradient(rgba(196,98,45,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(196,98,45,0.06) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%); }
+    .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 7rem 4rem 5rem 8rem; position: relative; z-index: 2; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 0.6rem; font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 1.5rem; }
+    .hero-tag::before { content: ''; width: 28px; height: 2px; background: var(--terracotta); }
+    h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2.8rem, 4.5vw, 5rem); line-height: 1.0; letter-spacing: -0.03em; color: var(--deep); margin-bottom: 0.3rem; }
+    h1 em { font-style: italic; color: var(--terracotta); }
+    .hero-subtitle { font-family: 'DM Serif Display', serif; font-size: clamp(0.95rem, 1.6vw, 1.3rem); font-style: italic; color: var(--muted); margin-bottom: 1.5rem; }
+    .hero-mission { font-size: 1rem; font-weight: 300; color: var(--mid); line-height: 1.75; max-width: 460px; margin-bottom: 2.5rem; border-left: 3px solid var(--terracotta); padding-left: 1.2rem; }
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary { font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.85rem 1.8rem; background: var(--terracotta); color: var(--white); border: none; cursor: pointer; text-decoration: none; transition: background 0.2s, transform 0.15s; display: inline-block; }
+    .btn-primary:hover { background: var(--rust); transform: translateY(-2px); }
+    .btn-outline { font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.85rem 1.8rem; background: transparent; color: var(--mid); border: 2px solid var(--mid); cursor: pointer; text-decoration: none; transition: all 0.2s; display: inline-block; }
+    .btn-outline:hover { border-color: var(--terracotta); color: var(--terracotta); transform: translateY(-2px); }
+
+    /* PROFILE PIC */
+    .hero-right { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 7rem 8rem 5rem 2rem; position: relative; z-index: 2; gap: 2rem; }
+    .profile-pic-wrapper { position: relative; width: 240px; height: 240px; }
+    .profile-pic-wrapper::before { content: ''; position: absolute; top: 12px; left: 12px; right: -12px; bottom: -12px; border: 2px solid var(--terracotta); opacity: 0.25; border-radius: 50%; }
+    .profile-pic { width: 240px; height: 240px; border-radius: 50%; object-fit: cover; border: 4px solid var(--white); box-shadow: 0 8px 40px rgba(0,0,0,0.12); display: block; }
+    .profile-pic-placeholder { width: 240px; height: 240px; border-radius: 50%; border: 4px solid var(--white); box-shadow: 0 8px 40px rgba(0,0,0,0.12); background: linear-gradient(135deg, #e8dfc8 0%, #d9cdb8 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; }
+    .profile-pic-placeholder span { font-size: 2.2rem; }
+    .profile-pic-placeholder p { font-family: 'Syne', sans-serif; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-align: center; padding: 0 1.5rem; line-height: 1.5; }
+    .hero-stats { display: flex; gap: 2rem; }
+    .hero-stat { text-align: center; }
+    .stat-num { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--terracotta); line-height: 1; }
+    .stat-label { font-size: 0.68rem; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+
+    /* ABOUT */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .about-text p { font-size: 1rem; font-weight: 300; color: var(--mid); line-height: 1.85; margin-bottom: 1.2rem; }
     .about-text p strong { color: var(--deep); font-weight: 500; }
-    .pillars { display: flex; flex-direction: column; gap: 1.2rem; }
-    .pillar { padding: 1.5rem 1.8rem; border: 1px solid rgba(196,98,45,0.18); position: relative; overflow: hidden; transition: box-shadow 0.2s, transform 0.2s; }
+    .pillars { display: flex; flex-direction: column; gap: 1rem; }
+    .pillar { padding: 1.2rem 1.5rem; border: 1px solid rgba(196,98,45,0.18); position: relative; transition: box-shadow 0.2s, transform 0.2s; }
     .pillar::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--terracotta); }
     .pillar:hover { box-shadow: 4px 4px 0 rgba(196,98,45,0.15); transform: translateX(3px); }
-    .pillar-icon { font-size: 1.4rem; margin-bottom: 0.5rem; }
-    .pillar h3 { font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 0.4rem; }
-    .pillar p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+    .pillar h3 { font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 0.3rem; }
+    .pillar p { font-size: 0.84rem; color: var(--muted); line-height: 1.6; }
 
-    #publications .pub-list { display: flex; flex-direction: column; gap: 1.5rem; }
-    .pub-card { display: grid; grid-template-columns: 60px 1fr; gap: 1.5rem; padding: 1.8rem 2rem; background: var(--cream); border: 1px solid rgba(196,98,45,0.12); transition: box-shadow 0.2s; }
+    /* PUBLICATIONS */
+    .pub-list { display: flex; flex-direction: column; gap: 1.2rem; }
+    .pub-card { display: grid; grid-template-columns: 55px 1fr; gap: 1.5rem; padding: 1.5rem 1.8rem; background: var(--cream); border: 1px solid rgba(196,98,45,0.12); transition: box-shadow 0.2s; }
     .pub-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
-    .pub-year { font-family: 'DM Serif Display', serif; font-size: 1.6rem; font-style: italic; color: var(--terracotta); opacity: 0.6; line-height: 1; }
-    .pub-title { font-family: 'Syne', sans-serif; font-size: 0.92rem; font-weight: 600; color: var(--deep); margin-bottom: 0.4rem; line-height: 1.4; }
-    .pub-venue { font-size: 0.82rem; font-style: italic; color: var(--accent-blue); margin-bottom: 0.3rem; }
-    .pub-authors { font-size: 0.78rem; color: var(--muted); }
-    .pub-badge { display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.6rem; margin-left: 0.5rem; background: var(--terracotta); color: white; }
+    .pub-year { font-family: 'DM Serif Display', serif; font-size: 1.3rem; font-style: italic; color: var(--terracotta); opacity: 0.6; line-height: 1.1; }
+    .pub-title { font-family: 'Syne', sans-serif; font-size: 0.86rem; font-weight: 600; color: var(--deep); margin-bottom: 0.3rem; line-height: 1.4; }
+    .pub-venue { font-size: 0.78rem; font-style: italic; color: var(--accent-blue); margin-bottom: 0.25rem; }
+    .pub-authors { font-size: 0.74rem; color: var(--muted); }
+    .pub-badge { display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.15rem 0.5rem; margin-left: 0.4rem; background: var(--terracotta); color: white; vertical-align: middle; }
     .pub-badge.submitted { background: var(--accent-teal); }
     .pub-badge.prep { background: var(--muted); }
 
-    #experience .timeline { position: relative; padding-left: 2.5rem; }
+    /* EXPERIENCE */
+    .timeline { position: relative; padding-left: 2.5rem; }
     .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--terracotta), rgba(196,98,45,0.1)); }
-    .timeline-item { position: relative; margin-bottom: 3.5rem; }
-    .timeline-dot { position: absolute; left: -2.9rem; top: 0.4rem; width: 12px; height: 12px; background: var(--terracotta); border: 3px solid var(--cream); border-radius: 50%; }
-    .timeline-meta { font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 0.4rem; }
-    .timeline-title { font-family: 'DM Serif Display', serif; font-size: 1.4rem; letter-spacing: -0.02em; color: var(--deep); margin-bottom: 0.2rem; }
-    .timeline-org { font-size: 0.9rem; color: var(--muted); margin-bottom: 1rem; }
-    .timeline-points { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
-    .timeline-points li { font-size: 0.9rem; font-weight: 300; color: var(--mid); line-height: 1.65; padding-left: 1rem; position: relative; }
-    .timeline-points li::before { content: '→'; position: absolute; left: 0; color: var(--terracotta); font-size: 0.75rem; top: 0.05rem; }
+    .timeline-item { position: relative; margin-bottom: 3rem; }
+    .timeline-dot { position: absolute; left: -2.9rem; top: 0.35rem; width: 11px; height: 11px; background: var(--terracotta); border: 3px solid var(--cream); border-radius: 50%; }
+    .alt .timeline-dot { border-color: var(--white); }
+    .timeline-meta { font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 0.3rem; }
+    .timeline-title { font-family: 'DM Serif Display', serif; font-size: 1.3rem; letter-spacing: -0.02em; color: var(--deep); margin-bottom: 0.15rem; }
+    .timeline-org { font-size: 0.84rem; color: var(--muted); margin-bottom: 0.8rem; }
+    .timeline-points { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+    .timeline-points li { font-size: 0.86rem; font-weight: 300; color: var(--mid); line-height: 1.65; padding-left: 1rem; position: relative; }
+    .timeline-points li::before { content: '→'; position: absolute; left: 0; color: var(--terracotta); font-size: 0.7rem; top: 0.08rem; }
 
-    #skills .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-    .skill-group { padding: 2rem; border: 1px solid rgba(196,98,45,0.15); background: var(--cream); }
-    .skill-group-title { font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 1.2rem; }
-    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-    .skill-tag { font-size: 0.78rem; font-weight: 400; padding: 0.35rem 0.8rem; background: var(--white); border: 1px solid rgba(61,46,32,0.15); color: var(--mid); transition: all 0.15s; }
-    .skill-tag:hover { background: var(--terracotta); color: white; border-color: var(--terracotta); cursor: default; }
-
-    #grants .grant-card { background: linear-gradient(135deg, var(--deep) 0%, #2d1f10 100%); color: var(--cream); padding: 3rem 4rem; display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: center; margin-bottom: 2rem; position: relative; overflow: hidden; }
-    .grant-card::after { content: 'NASA'; position: absolute; right: -20px; bottom: -30px; font-family: 'DM Serif Display', serif; font-size: 8rem; font-style: italic; color: rgba(196,98,45,0.08); pointer-events: none; }
-    .grant-agency { font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 0.8rem; }
-    .grant-title { font-family: 'DM Serif Display', serif; font-size: 1.8rem; letter-spacing: -0.02em; color: var(--cream); margin-bottom: 0.6rem; line-height: 1.2; }
-    .grant-role { font-size: 0.88rem; color: rgba(245,240,232,0.65); }
+    /* GRANTS */
+    .grant-card { background: linear-gradient(135deg, var(--deep) 0%, #2d1f10 100%); color: var(--cream); padding: 3rem 4rem; display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: center; position: relative; overflow: hidden; }
+    .grant-card::after { content: 'NASA'; position: absolute; right: -10px; bottom: -30px; font-family: 'DM Serif Display', serif; font-size: 8rem; font-style: italic; color: rgba(196,98,45,0.08); pointer-events: none; }
+    .grant-agency { font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 0.7rem; }
+    .grant-title { font-family: 'DM Serif Display', serif; font-size: 1.7rem; letter-spacing: -0.02em; color: var(--cream); margin-bottom: 0.5rem; line-height: 1.2; }
+    .grant-role { font-size: 0.84rem; color: rgba(245,240,232,0.6); }
     .grant-amount { font-family: 'DM Serif Display', serif; font-size: 3rem; color: var(--terracotta); text-align: right; line-height: 1; }
-    .grant-amount-label { font-size: 0.75rem; color: rgba(245,240,232,0.5); text-align: right; margin-top: 0.3rem; }
+    .grant-amount-label { font-size: 0.7rem; color: rgba(245,240,232,0.45); text-align: right; margin-top: 0.3rem; }
 
-    #contact { background: var(--deep); }
-    #contact h2, #contact .section-num { color: var(--cream); }
-    #contact h2 em { color: var(--terracotta); }
+    /* SKILLS */
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .skill-group { padding: 1.8rem; border: 1px solid rgba(196,98,45,0.15); background: var(--cream); }
+    .skill-group-title { font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 1rem; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .skill-tag { font-size: 0.74rem; padding: 0.28rem 0.65rem; background: var(--white); border: 1px solid rgba(61,46,32,0.15); color: var(--mid); transition: all 0.15s; cursor: default; }
+    .skill-tag:hover { background: var(--terracotta); color: white; border-color: var(--terracotta); }
+
+    /* GALLERY */
+    .gallery-filters { display: flex; gap: 0.7rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .filter-btn { font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.5rem 1.1rem; background: transparent; border: 2px solid rgba(196,98,45,0.25); color: var(--muted); cursor: pointer; transition: all 0.2s; }
+    .filter-btn:hover, .filter-btn.active { background: var(--terracotta); color: white; border-color: var(--terracotta); }
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+    .gallery-item { position: relative; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; background: #e8dfc8; border: 1px solid rgba(196,98,45,0.12); }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; display: block; }
+    .gallery-item:hover img { transform: scale(1.05); }
+    .gallery-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,20,16,0.85) 0%, transparent 60%); opacity: 0; transition: opacity 0.3s; display: flex; flex-direction: column; justify-content: flex-end; padding: 1.2rem; }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-overlay-title { font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700; color: white; margin-bottom: 0.2rem; }
+    .gallery-overlay-tag { font-size: 0.65rem; color: var(--terracotta); text-transform: uppercase; letter-spacing: 0.1em; }
+    .gallery-item.hidden { display: none; }
+    .gallery-placeholder { grid-column: 1 / -1; padding: 4rem 2rem; text-align: center; border: 2px dashed rgba(196,98,45,0.2); }
+    .gallery-placeholder p { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 1.1rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .gallery-placeholder small { font-size: 0.8rem; color: var(--muted); opacity: 0.7; }
+
+    /* THOUGHTS */
+    .blog-intro { max-width: 620px; margin-bottom: 3rem; }
+    .blog-intro p { font-size: 1rem; font-weight: 300; color: var(--mid); line-height: 1.8; }
+    .blog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .blog-card { padding: 2rem; border: 1px solid rgba(196,98,45,0.15); background: var(--white); transition: box-shadow 0.2s, transform 0.15s; }
+    .blog-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.07); transform: translateY(-3px); }
+    .blog-cat { font-family: 'Syne', sans-serif; font-size: 0.63rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 0.6rem; }
+    .blog-title { font-family: 'DM Serif Display', serif; font-size: 1.2rem; letter-spacing: -0.02em; color: var(--deep); margin-bottom: 0.6rem; line-height: 1.3; }
+    .blog-excerpt { font-size: 0.86rem; font-weight: 300; color: var(--mid); line-height: 1.7; margin-bottom: 1rem; }
+    .blog-meta { font-size: 0.72rem; color: var(--muted); display: flex; align-items: center; gap: 1rem; }
+    .reading-list { margin-top: 4rem; }
+    .reading-list h3 { font-family: 'DM Serif Display', serif; font-size: 1.5rem; font-style: italic; color: var(--deep); margin-bottom: 1.5rem; }
+    .book-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
+    .book-card { padding: 1.5rem; border: 1px solid rgba(196,98,45,0.15); text-align: center; transition: box-shadow 0.2s; background: var(--white); }
+    .book-card:hover { box-shadow: 4px 4px 0 rgba(196,98,45,0.15); }
+    .book-emoji { font-size: 2rem; margin-bottom: 0.6rem; display: block; }
+    .book-title { font-family: 'DM Serif Display', serif; font-size: 0.9rem; color: var(--deep); margin-bottom: 0.3rem; line-height: 1.3; }
+    .book-author { font-size: 0.72rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .book-note { font-size: 0.76rem; font-style: italic; color: var(--terracotta); line-height: 1.5; }
+
+    /* CONTACT */
+    .contact-dark { background: var(--deep); padding: 6rem 8rem; }
+    .contact-dark h2, .contact-dark .section-num { color: var(--cream); }
+    .contact-dark h2 em { color: var(--terracotta); }
     .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-    .contact-text p { font-size: 1.05rem; font-weight: 300; color: rgba(245,240,232,0.7); line-height: 1.8; margin-bottom: 2rem; }
-    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
-    .contact-link { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.5rem; border: 1px solid rgba(245,240,232,0.1); text-decoration: none; color: var(--cream); transition: all 0.2s; }
+    .contact-text p { font-size: 1rem; font-weight: 300; color: rgba(245,240,232,0.7); line-height: 1.8; margin-bottom: 2rem; }
+    .contact-links { display: flex; flex-direction: column; gap: 0.8rem; }
+    .contact-link { display: flex; align-items: center; gap: 1rem; padding: 0.9rem 1.4rem; border: 1px solid rgba(245,240,232,0.1); text-decoration: none; color: var(--cream); transition: all 0.2s; }
     .contact-link:hover { background: rgba(196,98,45,0.15); border-color: rgba(196,98,45,0.4); }
-    .contact-link-icon { font-size: 1.2rem; }
-    .contact-link-label { font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--terracotta); display: block; margin-bottom: 0.1rem; }
-    .contact-link-val { font-size: 0.85rem; color: rgba(245,240,232,0.65); }
+    .contact-link-icon { font-size: 1.1rem; }
+    .contact-link-label { font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--terracotta); display: block; margin-bottom: 0.1rem; }
+    .contact-link-val { font-size: 0.8rem; color: rgba(245,240,232,0.6); }
 
     footer { background: var(--deep); border-top: 1px solid rgba(245,240,232,0.08); padding: 1.5rem 8rem; display: flex; justify-content: space-between; align-items: center; }
-    footer p { font-size: 0.78rem; color: rgba(245,240,232,0.35); }
+    footer p { font-size: 0.73rem; color: rgba(245,240,232,0.3); }
+    footer a { color: var(--terracotta); text-decoration: none; }
 
-    .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    /* ANIMATIONS */
+    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-    @media (max-width: 1100px) {
-      nav { padding: 1.2rem 2rem; }
-      section { padding: 5rem 3rem; }
-      #hero { grid-template-columns: 1fr; }
-      .hero-left { padding: 8rem 3rem 3rem; }
-      .hero-right { display: none; }
-      #about .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
-      #skills .skills-grid { grid-template-columns: 1fr 1fr; }
-      .grant-card { grid-template-columns: 1fr; }
-      footer { padding: 1.5rem 3rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+    /* LIGHTBOX */
+    .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 200; align-items: center; justify-content: center; }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 85vh; object-fit: contain; }
+    .lightbox-close { position: absolute; top: 1.5rem; right: 2rem; font-size: 2rem; color: white; cursor: pointer; background: none; border: none; }
+
+    /* ═══ MOBILE RESPONSIVE ═══ */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      section { padding: 4rem 1.5rem; }
+      .contact-dark { padding: 4rem 1.5rem; }
+      footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+      /* Hero stack */
+      #hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 6rem 1.5rem 2rem; order: 2; }
+      .hero-right { padding: 5rem 1.5rem 1rem; order: 1; }
+      .profile-pic-wrapper, .profile-pic, .profile-pic-placeholder { width: 160px; height: 160px; }
+      .hero-stats { gap: 1.5rem; }
+      .stat-num { font-size: 1.6rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .blog-grid { grid-template-columns: 1fr; }
+      .book-grid { grid-template-columns: 1fr 1fr; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .grant-card { grid-template-columns: 1fr; padding: 2rem; }
+      .grant-amount { text-align: left; }
+      .pub-card { grid-template-columns: 1fr; gap: 0.3rem; }
+    }
+    @media (max-width: 540px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .book-grid { grid-column: 1fr 1fr; grid-template-columns: 1fr 1fr; }
+      .hero-stats { flex-wrap: wrap; justify-content: center; gap: 1.2rem; }
+      h2 { font-size: 1.6rem; }
+      h1 { font-size: 2.4rem; }
     }
   </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-  <div class="nav-logo">Saumya Gupta</div>
+  <span class="nav-logo" onclick="showPage('home')">Saumya Gupta</span>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#publications">Research</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#grants">Grants</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a onclick="showPage('home'); scrollSec('about')">About</a></li>
+    <li><a onclick="showPage('home'); scrollSec('publications')">Research</a></li>
+    <li><a onclick="showPage('home'); scrollSec('experience')">Experience</a></li>
+    <li><a onclick="showPage('home'); scrollSec('grants')">Grants</a></li>
+    <li><a onclick="showPage('gallery-page')">Gallery</a></li>
+    <li><a onclick="showPage('thoughts-page')">Thoughts</a></li>
+    <li><a onclick="showPage('home'); scrollSec('contact-section')">Contact</a></li>
   </ul>
+  <button class="hamburger" id="hamburger" onclick="toggleMob()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <a onclick="closeMob(); showPage('home')">Home</a>
+  <a onclick="closeMob(); showPage('home'); scrollSec('about')">About</a>
+  <a onclick="closeMob(); showPage('home'); scrollSec('publications')">Research</a>
+  <a onclick="closeMob(); showPage('home'); scrollSec('experience')">Experience</a>
+  <a onclick="closeMob(); showPage('home'); scrollSec('grants')">Grants</a>
+  <a onclick="closeMob(); showPage('gallery-page')">Gallery</a>
+  <a onclick="closeMob(); showPage('thoughts-page')">Thoughts</a>
+  <a onclick="closeMob(); showPage('home'); scrollSec('contact-section')">Contact</a>
+</div>
+
+<!-- ══════════════════════════════════
+     HOME
+══════════════════════════════════ -->
+<div id="home" class="page active">
 
 <section id="hero">
   <div class="hero-bg"></div>
@@ -179,157 +268,79 @@
     <span class="hero-tag">Postdoctoral Research Associate · UCF</span>
     <h1>Saumya<br><em>Gupta</em></h1>
     <p class="hero-subtitle">Human-Centered Autonomy &amp; Mobility Researcher</p>
-    <p class="hero-mission">
-      I translate human behavior into systems that protect people — bridging engineering rigor, human psychology, and storytelling to shape urban mobility that is technically advanced, socially inclusive, and safe.
-    </p>
+    <p class="hero-mission">I translate human behavior into systems that protect people — bridging engineering rigor, human psychology, and storytelling to shape urban mobility that is technically advanced, socially inclusive, and safe.</p>
     <div class="hero-ctas">
       <a href="https://scholar.google.com/citations?user=nePcSDMAAAAJ&hl=en" target="_blank" class="btn-primary">Google Scholar</a>
-      <a href="#publications" class="btn-outline">View Research</a>
+      <a onclick="scrollSec('publications')" class="btn-outline">View Research</a>
     </div>
   </div>
   <div class="hero-right">
-    <div class="hero-stat-card">
-      <div class="stat-num">7+</div>
-      <div class="stat-label">Publications</div>
+    <!--
+      HOW TO ADD YOUR PROFILE PHOTO:
+      1. Upload a photo (e.g. "profile.jpg") to GitHub in the same folder as index.html
+      2. Delete the <div class="profile-pic-placeholder">...</div> block below
+      3. Uncomment and use this line instead:
+         <img src="profile.jpg" alt="Saumya Gupta" class="profile-pic" />
+    -->
+    <div class="profile-pic-wrapper">
+      <div class="profile-pic-placeholder">
+        <span>🖼️</span>
+        <p>Upload profile.jpg<br/>to GitHub &amp; update src</p>
+      </div>
     </div>
-    <div class="hero-stat-card">
-      <div class="stat-num">$50K</div>
-      <div class="stat-label">NASA MPLAN Grant (PI)</div>
-    </div>
-    <div class="hero-stat-card">
-      <div class="stat-num">3</div>
-      <div class="stat-label">Degrees · EE, CE &amp; IoT</div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="stat-num">7+</div><div class="stat-label">Publications</div></div>
+      <div class="hero-stat"><div class="stat-num">$50K</div><div class="stat-label">NASA Grant</div></div>
+      <div class="hero-stat"><div class="stat-num">3</div><div class="stat-label">Degrees</div></div>
     </div>
   </div>
 </section>
 
-<section id="about">
-  <div class="section-header fade-up">
-    <span class="section-num">01</span>
-    <h2>About <em>My Work</em></h2>
-  </div>
+<section id="about" class="alt">
+  <div class="section-header fade-up"><span class="section-num">01</span><h2>About <em>My Work</em></h2></div>
   <div class="about-grid">
     <div class="about-text fade-up">
       <p>I am a <strong>Postdoctoral Research Associate</strong> in Industrial Engineering &amp; Management Systems at the University of Central Florida, working at the intersection of human behavior modeling, digital twins, and intelligent transportation systems.</p>
-      <p>My research designs and validates <strong>simulation environments and digital twin frameworks</strong> to enhance Air Traffic Management for Advanced Air Mobility (AAM) — while keeping human experience at the center of every system.</p>
-      <p>Previously, I spent two years as a Data Analyst at Insight Transportation Consulting, applying travel demand modeling to real transit projects across LA Metro, Metra Rail, and others. I bring both <strong>academic rigor and industry practice</strong> to every problem I touch.</p>
-      <p>My Ph.D. from UCF (Civil Engineering, Smart City focus) and M.S. from UNLV (Electrical &amp; Computer Engineering) give me an unusually broad lens — I think in systems, feel in stories, and build with data.</p>
+      <p>My research designs <strong>simulation environments and digital twin frameworks</strong> to enhance Air Traffic Management for Advanced Air Mobility (AAM) — while keeping human experience at the center of every system.</p>
+      <p>Previously, two years as a Data Analyst at Insight Transportation Consulting applied travel demand modeling to real transit projects across LA Metro, Metra Rail, and others. I bring both <strong>academic rigor and industry practice</strong> to every problem I touch.</p>
+      <p>Ph.D. from UCF (Civil Engineering, Smart City focus) and M.S. from UNLV (Electrical &amp; Computer Engineering) — I think in systems, feel in stories, and build with data.</p>
     </div>
     <div class="pillars fade-up">
-      <div class="pillar">
-        <div class="pillar-icon">🧠</div>
-        <h3>Human Behavior Modeling</h3>
-        <p>Pedestrian trajectory simulation, social interaction dynamics, receding horizon optimization, and generative modeling of human movement in shared spaces.</p>
-      </div>
-      <div class="pillar">
-        <div class="pillar-icon">✈️</div>
-        <h3>Advanced Air Mobility</h3>
-        <p>Digital twin environments for UAM/AAM, air-to-ground communication simulation, synthetic trajectory generation for UAS, and GPS-denied drone operations.</p>
-      </div>
-      <div class="pillar">
-        <div class="pillar-icon">🏙️</div>
-        <h3>Intelligent Urban Systems</h3>
-        <p>Travel demand modeling, multi-modal transit analysis, GTFS real-time processing, and data-driven urban planning for safer, more equitable cities.</p>
-      </div>
-      <div class="pillar">
-        <div class="pillar-icon">📊</div>
-        <h3>Data Science &amp; ML</h3>
-        <p>LSTM networks, reinforcement learning, NLP, optimal control theory, and statistical modeling applied to transportation and mobility datasets.</p>
-      </div>
+      <div class="pillar"><h3>🧠 Human Behavior Modeling</h3><p>Pedestrian trajectory simulation, social interaction dynamics, receding horizon optimization, and generative modeling of movement in shared spaces.</p></div>
+      <div class="pillar"><h3>✈️ Advanced Air Mobility</h3><p>Digital twin environments for UAM/AAM, air-to-ground communication simulation, synthetic trajectory generation for UAS, GPS-denied drone operations.</p></div>
+      <div class="pillar"><h3>🏙️ Intelligent Urban Systems</h3><p>Travel demand modeling, multi-modal transit analysis, GTFS real-time processing, data-driven urban planning for safer, equitable cities.</p></div>
+      <div class="pillar"><h3>📊 Data Science &amp; ML</h3><p>LSTM networks, reinforcement learning, NLP, optimal control theory, and statistical modeling applied to transportation and mobility datasets.</p></div>
     </div>
   </div>
 </section>
 
 <section id="publications">
-  <div class="section-header fade-up">
-    <span class="section-num">02</span>
-    <h2>Research &amp; <em>Publications</em></h2>
-  </div>
+  <div class="section-header fade-up"><span class="section-num">02</span><h2>Research &amp; <em>Publications</em></h2></div>
   <div class="pub-list">
-    <div class="pub-card fade-up">
-      <div class="pub-year">2025</div>
-      <div>
-        <div class="pub-title">A Modular Ray-Tracing Framework for Simulating Air-to-Ground Communication in Urban Environments</div>
-        <div class="pub-venue">IEEE / AIAA DATC · 44th Digital Avionics Systems Conference</div>
-        <div class="pub-authors">Saumya Gupta &amp; Adan Vela</div>
-      </div>
-    </div>
-    <div class="pub-card fade-up">
-      <div class="pub-year">2024</div>
-      <div>
-        <div class="pub-title">A Machine Learning Based Approach for Smart and Automated Data Collection: Applications in Transportation</div>
-        <div class="pub-venue">Transportation in Developing Economies, 10(1), 15</div>
-        <div class="pub-authors">Shaurya Agarwal, Saumya Gupta, Pushkin Kachroo &amp; Nilesh Dhingra</div>
-      </div>
-    </div>
-    <div class="pub-card fade-up">
-      <div class="pub-year">2023</div>
-      <div>
-        <div class="pub-title">HISS: A Human Trajectory Planning Simulation Framework for Shared Space</div>
-        <div class="pub-venue">IEEE Open Journal of Intelligent Transportation Systems</div>
-        <div class="pub-authors">Saumya Gupta, Mohamed H. Zaki &amp; Adan Vela</div>
-      </div>
-    </div>
-    <div class="pub-card fade-up">
-      <div class="pub-year">2022</div>
-      <div>
-        <div class="pub-title">Generative Modeling of Pedestrian Behavior: A Receding Horizon Optimization-Based Trajectory Planning Approach</div>
-        <div class="pub-venue">IEEE Access, Vol. 10, pp. 81624–81641</div>
-        <div class="pub-authors">Saumya Gupta, Mohamed H. Zaki &amp; Adan Vela</div>
-      </div>
-    </div>
-    <div class="pub-card fade-up">
-      <div class="pub-year">2017</div>
-      <div>
-        <div class="pub-title">Optimal Control for Congestion Pricing: Theory, Simulation and Evaluation</div>
-        <div class="pub-venue">IEEE Transactions on Intelligent Transportation Systems, 18(5), pp. 1234–1240</div>
-        <div class="pub-authors">Pushkin Kachroo, Saumya Gupta, Shaurya Agarwal &amp; Kaan Ozbay</div>
-      </div>
-    </div>
-    <div class="pub-card fade-up">
-      <div class="pub-year">2026</div>
-      <div>
-        <div class="pub-title">Data-Driven Synthetic Trajectory Generation for Small Uncrewed Aircraft Systems <span class="pub-badge submitted">Submitted</span></div>
-        <div class="pub-venue">IEEE / 45th DASC Conference</div>
-        <div class="pub-authors">Saumya Gupta &amp; Adan Vela</div>
-      </div>
-    </div>
-    <div class="pub-card fade-up">
-      <div class="pub-year">2026</div>
-      <div>
-        <div class="pub-title">Generation of Synthetic Cities for AAM Research <span class="pub-badge submitted">Submitted</span></div>
-        <div class="pub-venue">IEEE / 45th DASC Conference</div>
-        <div class="pub-authors">Saumya Gupta &amp; Adan Vela</div>
-      </div>
-    </div>
-    <div class="pub-card fade-up">
-      <div class="pub-year">TBD</div>
-      <div>
-        <div class="pub-title">Trajectory-Aware Route Maintenance Framework for Enhanced Pedestrian Networks <span class="pub-badge prep">In Preparation</span></div>
-        <div class="pub-venue">IEEE</div>
-        <div class="pub-authors">Saumya Gupta &amp; Mohamed H. Zaki</div>
-      </div>
-    </div>
+    <div class="pub-card fade-up"><div class="pub-year">2025</div><div><div class="pub-title">A Modular Ray-Tracing Framework for Simulating Air-to-Ground Communication in Urban Environments</div><div class="pub-venue">IEEE / AIAA DATC · 44th Digital Avionics Systems Conference</div><div class="pub-authors">Saumya Gupta &amp; Adan Vela</div></div></div>
+    <div class="pub-card fade-up"><div class="pub-year">2024</div><div><div class="pub-title">A Machine Learning Based Approach for Smart and Automated Data Collection: Applications in Transportation</div><div class="pub-venue">Transportation in Developing Economies, 10(1), 15</div><div class="pub-authors">Shaurya Agarwal, Saumya Gupta, Pushkin Kachroo &amp; Nilesh Dhingra</div></div></div>
+    <div class="pub-card fade-up"><div class="pub-year">2023</div><div><div class="pub-title">HISS: A Human Trajectory Planning Simulation Framework for Shared Space</div><div class="pub-venue">IEEE Open Journal of Intelligent Transportation Systems</div><div class="pub-authors">Saumya Gupta, Mohamed H. Zaki &amp; Adan Vela</div></div></div>
+    <div class="pub-card fade-up"><div class="pub-year">2022</div><div><div class="pub-title">Generative Modeling of Pedestrian Behavior: A Receding Horizon Optimization-Based Trajectory Planning Approach</div><div class="pub-venue">IEEE Access, Vol. 10, pp. 81624–81641</div><div class="pub-authors">Saumya Gupta, Mohamed H. Zaki &amp; Adan Vela</div></div></div>
+    <div class="pub-card fade-up"><div class="pub-year">2017</div><div><div class="pub-title">Optimal Control for Congestion Pricing: Theory, Simulation and Evaluation</div><div class="pub-venue">IEEE Transactions on Intelligent Transportation Systems, 18(5)</div><div class="pub-authors">Pushkin Kachroo, Saumya Gupta, Shaurya Agarwal &amp; Kaan Ozbay</div></div></div>
+    <div class="pub-card fade-up"><div class="pub-year">2026</div><div><div class="pub-title">Data-Driven Synthetic Trajectory Generation for Small Uncrewed Aircraft Systems <span class="pub-badge submitted">Submitted</span></div><div class="pub-venue">IEEE / 45th DASC Conference</div><div class="pub-authors">Saumya Gupta &amp; Adan Vela</div></div></div>
+    <div class="pub-card fade-up"><div class="pub-year">2026</div><div><div class="pub-title">Generation of Synthetic Cities for AAM Research <span class="pub-badge submitted">Submitted</span></div><div class="pub-venue">IEEE / 45th DASC Conference</div><div class="pub-authors">Saumya Gupta &amp; Adan Vela</div></div></div>
+    <div class="pub-card fade-up"><div class="pub-year">TBD</div><div><div class="pub-title">Trajectory-Aware Route Maintenance Framework for Enhanced Pedestrian Networks <span class="pub-badge prep">In Preparation</span></div><div class="pub-venue">IEEE</div><div class="pub-authors">Saumya Gupta &amp; Mohamed H. Zaki</div></div></div>
   </div>
 </section>
 
-<section id="experience">
-  <div class="section-header fade-up">
-    <span class="section-num">03</span>
-    <h2>Professional <em>Experience</em></h2>
-  </div>
+<section id="experience" class="alt">
+  <div class="section-header fade-up"><span class="section-num">03</span><h2>Professional <em>Experience</em></h2></div>
   <div class="timeline">
     <div class="timeline-item fade-up">
       <div class="timeline-dot"></div>
       <div class="timeline-meta">Feb 2025 – Present</div>
       <div class="timeline-title">Postdoctoral Research Associate</div>
-      <div class="timeline-org">Industrial Engineering &amp; Management Systems · University of Central Florida, Orlando</div>
+      <div class="timeline-org">Industrial Engineering &amp; Management Systems · UCF, Orlando</div>
       <ul class="timeline-points">
-        <li>Designing and validating simulation and digital twin environments for Advanced Air Mobility Air Traffic Management</li>
-        <li>Conducting human–machine interaction research on trajectory evolution and interaction dynamics in shared airspace</li>
-        <li>Mentoring graduate and undergraduate students on NASA-related projects, including GPS-denied drone operations</li>
-        <li>PI on $50K NASA MPLAN grant: <em>A Digital Twin for AAM Communication Channels</em></li>
-        <li>Contributing to competitive proposals (NASA MPLAN, USRC) and journal/conference publications</li>
+        <li>Designing and validating simulation and digital twin environments for AAM Air Traffic Management</li>
+        <li>Conducting human–machine interaction research on trajectory evolution in shared airspace</li>
+        <li>Mentoring graduate and undergraduate students on NASA-related projects</li>
+        <li>PI on $50K NASA MPLAN grant: Digital Twin for AAM Communication Channels</li>
       </ul>
     </div>
     <div class="timeline-item fade-up">
@@ -338,10 +349,9 @@
       <div class="timeline-title">Data Analyst</div>
       <div class="timeline-org">Insight Transportation Consulting · Orlando, FL</div>
       <ul class="timeline-points">
-        <li>Travel demand modeling for major transit projects: Inglewood Transit Connector, LA Metro Purple Line BRT, Metra Rail System</li>
-        <li>Developed Python-based GTFS Real-Time Processing tool for live transit data — trip cancellations, arrival times, dynamic GTFS updates</li>
-        <li>Multi-modal transportation analysis (auto, bus, rail) across BCT Transit Development Plan and Sunshine Corridor studies</li>
-        <li>Ridership forecasting, on-board survey analysis, and schedule optimization using APC data</li>
+        <li>Travel demand modeling: Inglewood Transit Connector, LA Metro Purple Line BRT, Metra Rail</li>
+        <li>Developed Python-based GTFS Real-Time Processing tool for live transit data</li>
+        <li>Multi-modal transportation analysis and ridership forecasting using APC data</li>
       </ul>
     </div>
     <div class="timeline-item fade-up">
@@ -351,18 +361,7 @@
       <div class="timeline-org">University of Central Florida · Orlando, FL</div>
       <ul class="timeline-points">
         <li>SAFER-SIM (Tier-1 UTC) funded research on active mobility and urban safety</li>
-        <li>Developed receding horizon optimization-based trajectory planning framework for pedestrian simulation in urban environments</li>
-        <li>Trajectory data processing, human behavior analysis, and simulation of realistic urban planning scenarios</li>
-      </ul>
-    </div>
-    <div class="timeline-item fade-up">
-      <div class="timeline-dot"></div>
-      <div class="timeline-meta">May – Nov 2022</div>
-      <div class="timeline-title">Sustainability Intern</div>
-      <div class="timeline-org">Orange County Public Works · Orlando, FL</div>
-      <ul class="timeline-points">
-        <li>Contributed to Orange County Sustainable Operations and Resilience Action Plan</li>
-        <li>Drafted white paper and training materials based on FDOT, FHWA, and TRB best practices</li>
+        <li>Developed receding horizon optimization-based trajectory planning framework</li>
       </ul>
     </div>
     <div class="timeline-item fade-up">
@@ -371,135 +370,208 @@
       <div class="timeline-title">Research Assistant</div>
       <div class="timeline-org">Transportation Research Center · UNLV, Las Vegas, NV</div>
       <ul class="timeline-points">
-        <li>Crash data analysis, occupant protection research, and ML applications in transportation safety</li>
+        <li>Crash data analysis, occupant protection, and ML applications in transportation safety</li>
       </ul>
     </div>
   </div>
 </section>
 
 <section id="grants">
-  <div class="section-header fade-up">
-    <span class="section-num">04</span>
-    <h2>Funded <em>Research</em></h2>
-  </div>
+  <div class="section-header fade-up"><span class="section-num">04</span><h2>Funded <em>Research</em></h2></div>
   <div class="grant-card fade-up">
     <div>
       <div class="grant-agency">NASA MPLAN · MUREP Partnership Learning Annual Notification 2025</div>
       <div class="grant-title">A Digital Twin for AAM Communication Channels</div>
       <div class="grant-role">Role: Principal Investigator (90%) · University of Central Florida</div>
     </div>
-    <div>
-      <div class="grant-amount">$50K</div>
-      <div class="grant-amount-label">Total Award</div>
-    </div>
+    <div><div class="grant-amount">$50K</div><div class="grant-amount-label">Total Award</div></div>
   </div>
 </section>
 
-<section id="skills">
-  <div class="section-header fade-up">
-    <span class="section-num">05</span>
-    <h2>Technical <em>Skills</em></h2>
-  </div>
+<section id="skills" class="alt">
+  <div class="section-header fade-up"><span class="section-num">05</span><h2>Technical <em>Skills</em></h2></div>
   <div class="skills-grid">
-    <div class="skill-group fade-up">
-      <div class="skill-group-title">Programming &amp; Libraries</div>
-      <div class="skill-tags">
-        <span class="skill-tag">Python</span><span class="skill-tag">MATLAB</span><span class="skill-tag">R</span>
-        <span class="skill-tag">PyTorch</span><span class="skill-tag">Scikit-learn</span>
-        <span class="skill-tag">Pandas</span><span class="skill-tag">Matplotlib</span><span class="skill-tag">Seaborn</span>
-      </div>
-    </div>
-    <div class="skill-group fade-up">
-      <div class="skill-group-title">Machine Learning &amp; Modeling</div>
-      <div class="skill-tags">
-        <span class="skill-tag">LSTM</span><span class="skill-tag">Reinforcement Learning</span>
-        <span class="skill-tag">NLP</span><span class="skill-tag">Regression</span>
-        <span class="skill-tag">Optimal Control</span><span class="skill-tag">Receding Horizon</span>
-        <span class="skill-tag">Mixed Integer Programming</span>
-      </div>
-    </div>
-    <div class="skill-group fade-up">
-      <div class="skill-group-title">Simulation Tools</div>
-      <div class="skill-tags">
-        <span class="skill-tag">VISSIM</span><span class="skill-tag">SUMO</span>
-        <span class="skill-tag">OMNeT++</span><span class="skill-tag">STOPS</span>
-        <span class="skill-tag">Digital Twins</span><span class="skill-tag">Ray Tracing</span>
-      </div>
-    </div>
-    <div class="skill-group fade-up">
-      <div class="skill-group-title">Visualization &amp; GIS</div>
-      <div class="skill-tags">
-        <span class="skill-tag">ArcGIS</span><span class="skill-tag">Tableau</span>
-        <span class="skill-tag">GTFSed</span><span class="skill-tag">Cube</span>
-        <span class="skill-tag">Google Analytics</span>
-      </div>
-    </div>
-    <div class="skill-group fade-up">
-      <div class="skill-group-title">Transportation Domain</div>
-      <div class="skill-tags">
-        <span class="skill-tag">Travel Demand Modeling</span><span class="skill-tag">GTFS Real-Time</span>
-        <span class="skill-tag">Air Traffic Management</span><span class="skill-tag">UAM / AAM</span>
-        <span class="skill-tag">Multi-modal Analysis</span><span class="skill-tag">Pedestrian Simulation</span>
-      </div>
-    </div>
-    <div class="skill-group fade-up">
-      <div class="skill-group-title">Research &amp; Communication</div>
-      <div class="skill-tags">
-        <span class="skill-tag">Grant Writing</span><span class="skill-tag">Technical Documentation</span>
-        <span class="skill-tag">Proposal Development</span><span class="skill-tag">LaTeX</span>
-        <span class="skill-tag">Peer Review</span><span class="skill-tag">Mentoring</span>
-      </div>
-    </div>
+    <div class="skill-group fade-up"><div class="skill-group-title">Programming &amp; Libraries</div><div class="skill-tags"><span class="skill-tag">Python</span><span class="skill-tag">MATLAB</span><span class="skill-tag">R</span><span class="skill-tag">PyTorch</span><span class="skill-tag">Scikit-learn</span><span class="skill-tag">Pandas</span><span class="skill-tag">Matplotlib</span></div></div>
+    <div class="skill-group fade-up"><div class="skill-group-title">ML &amp; Modeling</div><div class="skill-tags"><span class="skill-tag">LSTM</span><span class="skill-tag">Reinforcement Learning</span><span class="skill-tag">NLP</span><span class="skill-tag">Optimal Control</span><span class="skill-tag">Receding Horizon</span><span class="skill-tag">Mixed Integer Programming</span></div></div>
+    <div class="skill-group fade-up"><div class="skill-group-title">Simulation Tools</div><div class="skill-tags"><span class="skill-tag">VISSIM</span><span class="skill-tag">SUMO</span><span class="skill-tag">OMNeT++</span><span class="skill-tag">STOPS</span><span class="skill-tag">Digital Twins</span><span class="skill-tag">Ray Tracing</span></div></div>
+    <div class="skill-group fade-up"><div class="skill-group-title">Visualization &amp; GIS</div><div class="skill-tags"><span class="skill-tag">ArcGIS</span><span class="skill-tag">Tableau</span><span class="skill-tag">GTFSed</span><span class="skill-tag">Cube</span><span class="skill-tag">Google Analytics</span></div></div>
+    <div class="skill-group fade-up"><div class="skill-group-title">Transportation Domain</div><div class="skill-tags"><span class="skill-tag">Travel Demand Modeling</span><span class="skill-tag">GTFS Real-Time</span><span class="skill-tag">Air Traffic Management</span><span class="skill-tag">UAM / AAM</span><span class="skill-tag">Pedestrian Simulation</span></div></div>
+    <div class="skill-group fade-up"><div class="skill-group-title">Research &amp; Communication</div><div class="skill-tags"><span class="skill-tag">Grant Writing</span><span class="skill-tag">Technical Docs</span><span class="skill-tag">Proposal Development</span><span class="skill-tag">LaTeX</span><span class="skill-tag">Peer Review</span><span class="skill-tag">Mentoring</span></div></div>
   </div>
 </section>
 
-<section id="contact">
-  <div class="section-header fade-up">
-    <span class="section-num">06</span>
-    <h2>Get in <em>Touch</em></h2>
-  </div>
+<div id="contact-section" class="contact-dark">
+  <div class="section-header fade-up" style="margin-bottom:3rem;"><span class="section-num">06</span><h2>Get in <em>Touch</em></h2></div>
   <div class="contact-grid">
     <div class="contact-text fade-up">
-      <p>I'm open to research collaborations, faculty positions, and conversations about human-centered mobility, AAM, intelligent transportation systems, and urban safety. If my work resonates with what you're building, I'd love to connect.</p>
-      <a href="mailto:saumya.gupta@ucf.edu" class="btn-primary">Send an Email</a>
+      <p>Open to research collaborations, faculty positions, and conversations about human-centered mobility, AAM, intelligent transportation systems, and urban safety.</p>
+      <a href="mailto:your@email.com" class="btn-primary">Send an Email</a>
     </div>
     <div class="contact-links fade-up">
-      <a href="https://scholar.google.com/citations?user=nePcSDMAAAAJ&hl=en" target="_blank" class="contact-link">
-        <span class="contact-link-icon">📚</span>
-        <div><span class="contact-link-label">Google Scholar</span><span class="contact-link-val">Publications &amp; citation record</span></div>
-      </a>
-      <a href="https://stars.library.ucf.edu/etd2020/1381/" target="_blank" class="contact-link">
-        <span class="contact-link-icon">🎓</span>
-        <div><span class="contact-link-label">Ph.D. Dissertation</span><span class="contact-link-val">Generative Modeling of Human Behavior · UCF</span></div>
-      </a>
-      <a href="https://digitalscholarship.unlv.edu/thesesdissertations/2781/" target="_blank" class="contact-link">
-        <span class="contact-link-icon">📐</span>
-        <div><span class="contact-link-label">M.S. Thesis</span><span class="contact-link-val">Complex Traffic Network Modeling · UNLV</span></div>
-      </a>
-      <a href="https://www.herox.com/blog/1133-nasa-funds-over-15m-in-planning-prizes-to-minority" target="_blank" class="contact-link">
-        <span class="contact-link-icon">🚀</span>
-        <div><span class="contact-link-label">NASA MPLAN Grant</span><span class="contact-link-val">Digital Twin for AAM · $50K Award</span></div>
-      </a>
-      <a href="https://www.linkedin.com/in/saumya-gupta/" target="_blank" class="contact-link">
-        <span class="contact-link-icon">💼</span>
-        <div><span class="contact-link-label">LinkedIn</span><span class="contact-link-val">Update with your LinkedIn URL</span></div>
-      </a>
+      <a href="https://scholar.google.com/citations?user=nePcSDMAAAAJ&hl=en" target="_blank" class="contact-link"><span class="contact-link-icon">📚</span><div><span class="contact-link-label">Google Scholar</span><span class="contact-link-val">Publications &amp; citations</span></div></a>
+      <a href="https://stars.library.ucf.edu/etd2020/1381/" target="_blank" class="contact-link"><span class="contact-link-icon">🎓</span><div><span class="contact-link-label">Ph.D. Dissertation</span><span class="contact-link-val">Generative Modeling of Human Behavior · UCF</span></div></a>
+      <a href="https://digitalscholarship.unlv.edu/thesesdissertations/2781/" target="_blank" class="contact-link"><span class="contact-link-icon">📐</span><div><span class="contact-link-label">M.S. Thesis</span><span class="contact-link-val">Complex Traffic Network Modeling · UNLV</span></div></a>
+      <a href="https://linkedin.com/in/your-linkedin" target="_blank" class="contact-link"><span class="contact-link-icon">💼</span><div><span class="contact-link-label">LinkedIn</span><span class="contact-link-val">Connect professionally</span></div></a>
     </div>
   </div>
-</section>
+</div>
 
 <footer>
   <p>© 2025 Saumya Gupta · Human-Centered Mobility Research</p>
   <p>UCF · Industrial Engineering &amp; Management Systems</p>
 </footer>
+</div><!-- /home -->
+
+
+<!-- ══════════════════════════════════
+     GALLERY PAGE
+══════════════════════════════════ -->
+<div id="gallery-page" class="page">
+<section style="padding-top:7rem;">
+  <div class="section-header fade-up"><span class="section-num">◎</span><h2>Gallery &amp; <em>Moments</em></h2></div>
+  <p class="fade-up" style="font-size:0.95rem; color:var(--muted); margin-bottom:2rem; font-weight:300; max-width:560px; line-height:1.75;">
+    Snapshots from conferences, the lab, and time with collaborators and students. Science is also about the people and places behind the work.
+  </p>
+
+  <!--
+    HOW TO ADD YOUR PHOTOS:
+    1. Create an "images/" folder in your GitHub repo
+    2. Upload your photos there (e.g. images/trb2024.jpg)
+    3. For each photo, add a block like this inside the gallery-grid div:
+
+    <div class="gallery-item" data-cat="conferences" onclick="openLightbox('images/trb2024.jpg','TRB 2024')">
+      <img src="images/trb2024.jpg" alt="TRB Annual Meeting 2024" loading="lazy" />
+      <div class="gallery-overlay">
+        <div class="gallery-overlay-title">TRB Annual Meeting 2024</div>
+        <div class="gallery-overlay-tag">Conference</div>
+      </div>
+    </div>
+
+    data-cat options: "conferences" | "lab" | "presentations" | "people"
+  -->
+
+  <div class="gallery-filters fade-up">
+    <button class="filter-btn active" onclick="filterGallery('all',this)">All</button>
+    <button class="filter-btn" onclick="filterGallery('conferences',this)">Conferences</button>
+    <button class="filter-btn" onclick="filterGallery('lab',this)">Lab &amp; Research</button>
+    <button class="filter-btn" onclick="filterGallery('presentations',this)">Presentations</button>
+    <button class="filter-btn" onclick="filterGallery('people',this)">With People</button>
+  </div>
+
+  <div class="gallery-grid fade-up" id="galleryGrid">
+    <div class="gallery-placeholder">
+      <p>Your photos will appear here ✨</p>
+      <small>Upload images to your GitHub repo and follow the instructions in the HTML comments above</small>
+    </div>
+  </div>
+</section>
+<footer><p>© 2025 Saumya Gupta</p><p><a onclick="showPage('home')">← Back to main site</a></p></footer>
+</div><!-- /gallery-page -->
+
+
+<!-- ══════════════════════════════════
+     THOUGHTS PAGE
+══════════════════════════════════ -->
+<div id="thoughts-page" class="page">
+<section style="padding-top:7rem; background:var(--white);">
+  <div class="section-header fade-up"><span class="section-num">✦</span><h2>Thoughts &amp; <em>Reflections</em></h2></div>
+
+  <div class="blog-intro fade-up">
+    <p>Beyond equations and simulations, I'm curious about how we learn, how cities shape people, and what it means to do meaningful work. This is where I share books that changed how I see things, lessons from research life, and thoughts worth returning to.</p>
+  </div>
+
+  <!--
+    TO ADD A NEW POST: copy one .blog-card block, update the content, and save.
+    Keep posts personal and honest — that's what makes this section valuable to readers.
+  -->
+  <div class="blog-grid">
+    <div class="blog-card fade-up">
+      <div class="blog-cat">Research &amp; Life</div>
+      <div class="blog-title">What urban systems taught me about human dignity</div>
+      <div class="blog-excerpt">Every pedestrian simulation I build is ultimately an argument that human movement matters — that the path someone walks to work is not just data, but a story about access, safety, and belonging in a city...</div>
+      <div class="blog-meta"><span>✍️ Saumya Gupta</span><span>📅 Coming soon</span></div>
+    </div>
+    <div class="blog-card fade-up">
+      <div class="blog-cat">Interdisciplinary Thinking</div>
+      <div class="blog-title">On being an engineer who thinks like a social scientist</div>
+      <div class="blog-excerpt">My degrees are in electrical and civil engineering. But most of my research questions come from psychology, sociology, and urban theory. Here's how I learned to sit comfortably in the gap...</div>
+      <div class="blog-meta"><span>✍️ Saumya Gupta</span><span>📅 Coming soon</span></div>
+    </div>
+    <div class="blog-card fade-up">
+      <div class="blog-cat">Mentoring</div>
+      <div class="blog-title">What I wish someone had told me in my first year of grad school</div>
+      <div class="blog-excerpt">The research skills are the easy part. The hard part is learning how to be uncertain, how to ask for help, and how to protect your curiosity when institutional pressure says just produce...</div>
+      <div class="blog-meta"><span>✍️ Saumya Gupta</span><span>📅 Coming soon</span></div>
+    </div>
+    <div class="blog-card fade-up">
+      <div class="blog-cat">Technology &amp; Society</div>
+      <div class="blog-title">Why Advanced Air Mobility needs humanists, not just engineers</div>
+      <div class="blog-excerpt">When we talk about drones flying over cities, the engineering problems are hard but solvable. The harder questions are: Who does this serve? What does it cost communities? Who decides?...</div>
+      <div class="blog-meta"><span>✍️ Saumya Gupta</span><span>📅 Coming soon</span></div>
+    </div>
+  </div>
+
+  <div class="reading-list fade-up">
+    <h3>Books I Keep Recommending</h3>
+    <div class="book-grid">
+      <div class="book-card"><span class="book-emoji">🏙️</span><div class="book-title">The Death and Life of Great American Cities</div><div class="book-author">Jane Jacobs</div><div class="book-note">Changed how I think about what a "safe" city actually means.</div></div>
+      <div class="book-card"><span class="book-emoji">🧠</span><div class="book-title">Thinking, Fast and Slow</div><div class="book-author">Daniel Kahneman</div><div class="book-note">Essential reading before designing any human-centered system.</div></div>
+      <div class="book-card"><span class="book-emoji">📡</span><div class="book-title">The Innovators</div><div class="book-author">Walter Isaacson</div><div class="book-note">A reminder that the best technology is always collaborative.</div></div>
+      <div class="book-card"><span class="book-emoji">🌱</span><div class="book-title">Braiding Sweetgrass</div><div class="book-author">Robin Wall Kimmerer</div><div class="book-note">On reciprocity, attention, and what it means to truly observe.</div></div>
+    </div>
+  </div>
+</section>
+<footer><p>© 2025 Saumya Gupta</p><p><a onclick="showPage('home')">← Back to main site</a></p></footer>
+</div><!-- /thoughts-page -->
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightboxImg" src="" alt="" />
+</div>
 
 <script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('visible');
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo(0,0);
+    initObs();
+  }
+  function scrollSec(id) {
+    setTimeout(() => { const el = document.getElementById(id); if(el) el.scrollIntoView({behavior:'smooth'}); }, 60);
+  }
+  function toggleMob() {
+    document.getElementById('mobileNav').classList.toggle('open');
+    document.getElementById('hamburger').classList.toggle('open');
+  }
+  function closeMob() {
+    document.getElementById('mobileNav').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+  }
+  function filterGallery(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.gallery-item[data-cat]').forEach(item => {
+      item.classList.toggle('hidden', cat !== 'all' && item.dataset.cat !== cat);
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  }
+  function openLightbox(src, alt) {
+    document.getElementById('lightboxImg').src = src;
+    document.getElementById('lightboxImg').alt = alt || '';
+    document.getElementById('lightbox').classList.add('open');
+  }
+  function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
+  document.getElementById('lightbox').addEventListener('click', function(e) { if(e.target===this) closeLightbox(); });
+
+  let obs;
+  function initObs() {
+    if (obs) obs.disconnect();
+    obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.fade-up').forEach(el => { el.classList.remove('visible'); obs.observe(el); });
+  }
+  initObs();
 </script>
 </body>
 </html>

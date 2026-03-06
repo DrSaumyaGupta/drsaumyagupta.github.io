@@ -3,225 +3,255 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Saumya Gupta — Human-Centered Mobility Researcher</title>
+  <title>Dr. Saumya Gupta — Human-Centered Mobility Researcher</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --cream: #f5f0e8; --terracotta: #c4622d; --rust: #a34a1e;
-      --deep: #1a1410; --mid: #3d2e20; --muted: #7a6a58;
-      --accent-blue: #2b5f8e; --accent-teal: #1e7b6e; --white: #fdfaf5;
+      --bg:       #FAFAF7;
+      --white:    #ffffff;
+      --olive:    #556B2F;
+      --olive-dk: #3d4f22;
+      --orange:   #F28C38;
+      --orange-dk:#d4741e;
+      --text:     #2E2E2E;
+      --mid:      #4a4a3a;
+      --muted:    #7a7a65;
+      --sand:     #eeeae0;
+      --accent-blue: #2b5f8e;
+      --accent-teal: #1e7b6e;
     }
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior: smooth; }
-    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--deep); overflow-x: hidden; }
+    body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text); overflow-x:hidden; }
 
-    /* NAV */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 4rem; background: rgba(245,240,232,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(196,98,45,0.15); }
-    .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--terracotta); text-decoration: none; cursor: pointer; }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a { font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); text-decoration: none; transition: color 0.2s; cursor: pointer; }
-    .nav-links a:hover { color: var(--terracotta); }
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
-    .hamburger span { display: block; width: 24px; height: 2px; background: var(--mid); transition: all 0.3s; }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-    .mobile-nav { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--cream); z-index: 99; flex-direction: column; align-items: center; justify-content: center; gap: 2.2rem; }
-    .mobile-nav.open { display: flex; }
-    .mobile-nav a { font-family: 'DM Serif Display', serif; font-size: 1.8rem; font-style: italic; color: var(--deep); text-decoration: none; transition: color 0.2s; cursor: pointer; }
-    .mobile-nav a:hover { color: var(--terracotta); }
+    /* ── NAV ── */
+    nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:1rem 4rem; background:rgba(250,250,247,0.96); backdrop-filter:blur(12px); border-bottom:1px solid rgba(85,107,47,0.15); }
+    .nav-logo { font-family:'DM Serif Display',serif; font-size:1.1rem; color:var(--olive); cursor:pointer; }
+    .nav-links { display:flex; gap:1.8rem; list-style:none; }
+    .nav-links a { font-family:'Syne',sans-serif; font-size:0.73rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--mid); text-decoration:none; transition:color 0.2s; cursor:pointer; }
+    .nav-links a:hover { color:var(--olive); }
+    .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; background:none; border:none; }
+    .hamburger span { display:block; width:24px; height:2px; background:var(--mid); transition:all 0.3s; }
+    .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity:0; }
+    .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+    .mobile-nav { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:var(--bg); z-index:99; flex-direction:column; align-items:center; justify-content:center; gap:2rem; }
+    .mobile-nav.open { display:flex; }
+    .mobile-nav a { font-family:'DM Serif Display',serif; font-size:1.8rem; font-style:italic; color:var(--text); text-decoration:none; cursor:pointer; transition:color 0.2s; }
+    .mobile-nav a:hover { color:var(--olive); }
 
-    /* PAGES */
-    .page { display: none; }
-    .page.active { display: block; }
+    /* ── PAGES ── */
+    .page { display:none; }
+    .page.active { display:block; }
 
-    /* SECTIONS */
-    section { padding: 6rem 8rem; }
-    section.alt { background: var(--white); }
-    .section-header { display: flex; align-items: baseline; gap: 1.5rem; margin-bottom: 3.5rem; }
-    .section-num { font-family: 'DM Serif Display', serif; font-size: 1rem; font-style: italic; color: var(--terracotta); opacity: 0.7; }
-    h2 { font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem, 3.5vw, 3rem); letter-spacing: -0.03em; color: var(--deep); line-height: 1.1; }
-    h2 em { font-style: italic; color: var(--terracotta); }
+    /* ── SECTIONS ── */
+    section { padding:6rem 8rem; }
+    section.alt { background:var(--white); }
+    .section-header { display:flex; align-items:baseline; gap:1.5rem; margin-bottom:3.5rem; }
+    .section-num { font-family:'DM Serif Display',serif; font-size:1rem; font-style:italic; color:var(--orange); opacity:0.8; }
+    h2 { font-family:'DM Serif Display',serif; font-size:clamp(1.8rem,3.5vw,3rem); letter-spacing:-0.03em; color:var(--text); line-height:1.1; }
+    h2 em { font-style:italic; color:var(--olive); }
 
-    /* HERO */
-    #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 4rem; position: relative; overflow: hidden; }
-    .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(196,98,45,0.07) 0%, transparent 70%), radial-gradient(ellipse 40% 60% at 10% 90%, rgba(43,95,142,0.06) 0%, transparent 60%); }
-    .hero-grid-pattern { position: absolute; inset: 0; background-image: linear-gradient(rgba(196,98,45,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(196,98,45,0.06) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%); }
-    .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 7rem 4rem 5rem 8rem; position: relative; z-index: 2; }
-    .hero-tag { display: inline-flex; align-items: center; gap: 0.6rem; font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 1.5rem; }
-    .hero-tag::before { content: ''; width: 28px; height: 2px; background: var(--terracotta); }
-    h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2.8rem, 4.5vw, 5rem); line-height: 1.0; letter-spacing: -0.03em; color: var(--deep); margin-bottom: 0.3rem; }
-    h1 em { font-style: italic; color: var(--terracotta); }
-    .hero-subtitle { font-family: 'DM Serif Display', serif; font-size: clamp(0.95rem, 1.6vw, 1.3rem); font-style: italic; color: var(--muted); margin-bottom: 1.5rem; }
-    .hero-mission { font-size: 1rem; font-weight: 300; color: var(--mid); line-height: 1.75; max-width: 460px; margin-bottom: 2.5rem; border-left: 3px solid var(--terracotta); padding-left: 1.2rem; }
-    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .btn-primary { font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.85rem 1.8rem; background: var(--terracotta); color: var(--white); border: none; cursor: pointer; text-decoration: none; transition: background 0.2s, transform 0.15s; display: inline-block; }
-    .btn-primary:hover { background: var(--rust); transform: translateY(-2px); }
-    .btn-outline { font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.85rem 1.8rem; background: transparent; color: var(--mid); border: 2px solid var(--mid); cursor: pointer; text-decoration: none; transition: all 0.2s; display: inline-block; }
-    .btn-outline:hover { border-color: var(--terracotta); color: var(--terracotta); transform: translateY(-2px); }
+    /* ── HERO ── */
+    #hero { min-height:100vh; display:grid; grid-template-columns:1fr 1fr; padding-top:4rem; position:relative; overflow:hidden; background:var(--bg); }
+    .hero-bg { position:absolute; inset:0; background:radial-gradient(ellipse 60% 80% at 80% 50%, rgba(85,107,47,0.07) 0%, transparent 70%), radial-gradient(ellipse 40% 60% at 10% 90%, rgba(242,140,56,0.06) 0%, transparent 60%); }
+    .hero-grid-pattern { position:absolute; inset:0; background-image:linear-gradient(rgba(85,107,47,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(85,107,47,0.06) 1px,transparent 1px); background-size:60px 60px; mask-image:radial-gradient(ellipse at center,black 0%,transparent 70%); }
+    .hero-left { display:flex; flex-direction:column; justify-content:center; padding:7rem 4rem 5rem 8rem; position:relative; z-index:2; }
+    .hero-tag { display:inline-flex; align-items:center; gap:0.6rem; font-family:'Syne',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--olive); margin-bottom:1.5rem; }
+    .hero-tag::before { content:''; width:28px; height:2px; background:var(--olive); }
+    h1 { font-family:'DM Serif Display',serif; font-size:clamp(2.8rem,4.5vw,5rem); line-height:1.0; letter-spacing:-0.03em; color:var(--text); margin-bottom:0.3rem; }
+    h1 em { font-style:italic; color:var(--olive); }
+    .hero-subtitle { font-family:'DM Serif Display',serif; font-size:clamp(0.95rem,1.6vw,1.25rem); font-style:italic; color:var(--muted); margin-bottom:1.5rem; }
+    .hero-mission { font-size:1rem; font-weight:300; color:var(--mid); line-height:1.75; max-width:460px; margin-bottom:2.5rem; border-left:3px solid var(--orange); padding-left:1.2rem; }
+    .hero-ctas { display:flex; gap:0.8rem; flex-wrap:wrap; }
+    .btn-primary { font-family:'Syne',sans-serif; font-size:0.76rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:0.85rem 1.7rem; background:var(--olive); color:#fff; border:none; cursor:pointer; text-decoration:none; transition:background 0.2s,transform 0.15s; display:inline-block; }
+    .btn-primary:hover { background:var(--olive-dk); transform:translateY(-2px); }
+    .btn-secondary { font-family:'Syne',sans-serif; font-size:0.76rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:0.85rem 1.7rem; background:var(--orange); color:#fff; border:none; cursor:pointer; text-decoration:none; transition:background 0.2s,transform 0.15s; display:inline-block; }
+    .btn-secondary:hover { background:var(--orange-dk); transform:translateY(-2px); }
+    .btn-outline { font-family:'Syne',sans-serif; font-size:0.76rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:0.85rem 1.7rem; background:transparent; color:var(--mid); border:2px solid var(--mid); cursor:pointer; text-decoration:none; transition:all 0.2s; display:inline-block; }
+    .btn-outline:hover { border-color:var(--olive); color:var(--olive); transform:translateY(-2px); }
 
     /* PROFILE PIC */
-    .hero-right { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 7rem 8rem 5rem 2rem; position: relative; z-index: 2; gap: 2rem; }
-    .profile-pic-wrapper { position: relative; width: 240px; height: 240px; }
-    .profile-pic-wrapper::before { content: ''; position: absolute; top: 12px; left: 12px; right: -12px; bottom: -12px; border: 2px solid var(--terracotta); opacity: 0.25; border-radius: 50%; }
-    .profile-pic { width: 240px; height: 240px; border-radius: 50%; object-fit: cover; border: 4px solid var(--white); box-shadow: 0 8px 40px rgba(0,0,0,0.12); display: block; }
-    .profile-pic-placeholder { width: 240px; height: 240px; border-radius: 50%; border: 4px solid var(--white); box-shadow: 0 8px 40px rgba(0,0,0,0.12); background: linear-gradient(135deg, #e8dfc8 0%, #d9cdb8 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; }
-    .profile-pic-placeholder span { font-size: 2.2rem; }
-    .profile-pic-placeholder p { font-family: 'Syne', sans-serif; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-align: center; padding: 0 1.5rem; line-height: 1.5; }
-    .hero-stats { display: flex; gap: 2rem; }
-    .hero-stat { text-align: center; }
-    .stat-num { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--terracotta); line-height: 1; }
-    .stat-label { font-size: 0.68rem; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+    .hero-right { display:flex; flex-direction:column; align-items:center; justify-content:center; padding:7rem 8rem 5rem 2rem; position:relative; z-index:2; gap:2rem; }
+    .profile-pic-wrapper { position:relative; width:240px; height:240px; }
+    .profile-pic-wrapper::before { content:''; position:absolute; top:12px; left:12px; right:-12px; bottom:-12px; border:2px solid var(--olive); opacity:0.25; border-radius:50%; }
+    .profile-pic { width:240px; height:240px; border-radius:50%; object-fit:cover; border:4px solid var(--white); box-shadow:0 8px 40px rgba(0,0,0,0.12); display:block; }
+    .profile-pic-placeholder { width:240px; height:240px; border-radius:50%; border:4px solid var(--white); box-shadow:0 8px 40px rgba(0,0,0,0.12); background:linear-gradient(135deg,#e5e8d8 0%,#d4d9c0 100%); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.5rem; }
+    .profile-pic-placeholder span { font-size:2.2rem; }
+    .profile-pic-placeholder p { font-family:'Syne',sans-serif; font-size:0.6rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); text-align:center; padding:0 1.5rem; line-height:1.5; }
+    .hero-stats { display:flex; gap:2rem; }
+    .hero-stat { text-align:center; }
+    .stat-num { font-family:'DM Serif Display',serif; font-size:2rem; color:var(--orange); line-height:1; }
+    .stat-label { font-size:0.68rem; font-weight:500; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; }
 
-    /* ABOUT */
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-    .about-text p { font-size: 1rem; font-weight: 300; color: var(--mid); line-height: 1.85; margin-bottom: 1.2rem; }
-    .about-text p strong { color: var(--deep); font-weight: 500; }
-    .pillars { display: flex; flex-direction: column; gap: 1rem; }
-    .pillar { padding: 1.2rem 1.5rem; border: 1px solid rgba(196,98,45,0.18); position: relative; transition: box-shadow 0.2s, transform 0.2s; }
-    .pillar::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--terracotta); }
-    .pillar:hover { box-shadow: 4px 4px 0 rgba(196,98,45,0.15); transform: translateX(3px); }
-    .pillar h3 { font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 0.3rem; }
-    .pillar p { font-size: 0.84rem; color: var(--muted); line-height: 1.6; }
+    /* ── ABOUT ── */
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start; }
+    .about-text p { font-size:1rem; font-weight:300; color:var(--mid); line-height:1.85; margin-bottom:1.2rem; }
+    .about-text p strong { color:var(--text); font-weight:500; }
+    .pillars { display:flex; flex-direction:column; gap:1rem; }
+    .pillar { padding:1.2rem 1.5rem; border:1px solid rgba(85,107,47,0.18); position:relative; transition:box-shadow 0.2s,transform 0.2s; }
+    .pillar::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--olive); }
+    .pillar:hover { box-shadow:4px 4px 0 rgba(85,107,47,0.15); transform:translateX(3px); }
+    .pillar h3 { font-family:'Syne',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--olive); margin-bottom:0.3rem; }
+    .pillar p { font-size:0.84rem; color:var(--muted); line-height:1.6; }
 
-    /* PUBLICATIONS */
-    .pub-list { display: flex; flex-direction: column; gap: 1.2rem; }
-    .pub-card { display: grid; grid-template-columns: 55px 1fr; gap: 1.5rem; padding: 1.5rem 1.8rem; background: var(--cream); border: 1px solid rgba(196,98,45,0.12); transition: box-shadow 0.2s; }
-    .pub-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
-    .pub-year { font-family: 'DM Serif Display', serif; font-size: 1.3rem; font-style: italic; color: var(--terracotta); opacity: 0.6; line-height: 1.1; }
-    .pub-title { font-family: 'Syne', sans-serif; font-size: 0.86rem; font-weight: 600; color: var(--deep); margin-bottom: 0.3rem; line-height: 1.4; }
-    .pub-venue { font-size: 0.78rem; font-style: italic; color: var(--accent-blue); margin-bottom: 0.25rem; }
-    .pub-authors { font-size: 0.74rem; color: var(--muted); }
-    .pub-badge { display: inline-block; font-family: 'Syne', sans-serif; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.15rem 0.5rem; margin-left: 0.4rem; background: var(--terracotta); color: white; vertical-align: middle; }
-    .pub-badge.submitted { background: var(--accent-teal); }
-    .pub-badge.prep { background: var(--muted); }
+    /* ── RESEARCH + GRANTS SIDE BY SIDE ── */
+    .research-grants-layout { display:grid; grid-template-columns:1fr 380px; gap:3rem; align-items:start; }
 
-    /* EXPERIENCE */
-    .timeline { position: relative; padding-left: 2.5rem; }
-    .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--terracotta), rgba(196,98,45,0.1)); }
-    .timeline-item { position: relative; margin-bottom: 3rem; }
-    .timeline-dot { position: absolute; left: -2.9rem; top: 0.35rem; width: 11px; height: 11px; background: var(--terracotta); border: 3px solid var(--cream); border-radius: 50%; }
-    .alt .timeline-dot { border-color: var(--white); }
-    .timeline-meta { font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 0.3rem; }
-    .timeline-title { font-family: 'DM Serif Display', serif; font-size: 1.3rem; letter-spacing: -0.02em; color: var(--deep); margin-bottom: 0.15rem; }
-    .timeline-org { font-size: 0.84rem; color: var(--muted); margin-bottom: 0.8rem; }
-    .timeline-points { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
-    .timeline-points li { font-size: 0.86rem; font-weight: 300; color: var(--mid); line-height: 1.65; padding-left: 1rem; position: relative; }
-    .timeline-points li::before { content: '→'; position: absolute; left: 0; color: var(--terracotta); font-size: 0.7rem; top: 0.08rem; }
+    /* Publications */
+    .pub-list { display:flex; flex-direction:column; gap:1rem; }
+    .pub-card { padding:1.3rem 1.6rem; background:var(--bg); border:1px solid rgba(85,107,47,0.12); transition:box-shadow 0.2s,border-color 0.2s; border-left:3px solid transparent; }
+    .pub-card:hover { box-shadow:0 4px 18px rgba(0,0,0,0.07); border-left-color:var(--orange); }
+    .pub-header { display:flex; align-items:baseline; gap:0.8rem; margin-bottom:0.35rem; }
+    .pub-year { font-family:'DM Serif Display',serif; font-size:0.85rem; font-style:italic; color:var(--orange); white-space:nowrap; }
+    .pub-title { font-family:'Syne',sans-serif; font-size:0.86rem; font-weight:600; color:var(--text); line-height:1.4; }
+    .pub-title a { color:inherit; text-decoration:none; transition:color 0.2s; }
+    .pub-title a:hover { color:var(--olive); text-decoration:underline; text-underline-offset:3px; }
+    .pub-venue { font-size:0.78rem; font-style:italic; color:var(--accent-blue); margin-bottom:0.25rem; }
+    .pub-authors { font-size:0.73rem; color:var(--muted); }
+    .pub-badge { display:inline-block; font-family:'Syne',sans-serif; font-size:0.58rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:0.15rem 0.5rem; margin-left:0.4rem; background:var(--olive); color:white; vertical-align:middle; border-radius:2px; }
+    .pub-badge.submitted { background:var(--accent-teal); }
+    .pub-badge.prep { background:var(--muted); }
 
-    /* GRANTS */
-    .grant-card { background: linear-gradient(135deg, var(--deep) 0%, #2d1f10 100%); color: var(--cream); padding: 3rem 4rem; display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: center; position: relative; overflow: hidden; }
-    .grant-card::after { content: 'NASA'; position: absolute; right: -10px; bottom: -30px; font-family: 'DM Serif Display', serif; font-size: 8rem; font-style: italic; color: rgba(196,98,45,0.08); pointer-events: none; }
-    .grant-agency { font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 0.7rem; }
-    .grant-title { font-family: 'DM Serif Display', serif; font-size: 1.7rem; letter-spacing: -0.02em; color: var(--cream); margin-bottom: 0.5rem; line-height: 1.2; }
-    .grant-role { font-size: 0.84rem; color: rgba(245,240,232,0.6); }
-    .grant-amount { font-family: 'DM Serif Display', serif; font-size: 3rem; color: var(--terracotta); text-align: right; line-height: 1; }
-    .grant-amount-label { font-size: 0.7rem; color: rgba(245,240,232,0.45); text-align: right; margin-top: 0.3rem; }
+    /* Grants sidebar */
+    .grants-sidebar { display:flex; flex-direction:column; gap:1.5rem; }
+    .grant-sidebar-header { font-family:'DM Serif Display',serif; font-size:1.4rem; font-style:italic; color:var(--text); margin-bottom:0.5rem; }
+    .grant-sidebar-header em { color:var(--olive); }
+    .grant-card-sm { background:var(--olive); color:#fff; padding:2rem; position:relative; overflow:hidden; }
+    .grant-card-sm::after { content:'NASA'; position:absolute; right:-8px; bottom:-20px; font-family:'DM Serif Display',serif; font-size:5rem; font-style:italic; color:rgba(255,255,255,0.07); pointer-events:none; }
+    .grant-card-sm .grant-agency { font-family:'Syne',sans-serif; font-size:0.62rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.6); margin-bottom:0.6rem; }
+    .grant-card-sm .grant-title { font-family:'DM Serif Display',serif; font-size:1.1rem; color:#fff; margin-bottom:0.4rem; line-height:1.25; }
+    .grant-card-sm .grant-role { font-size:0.78rem; color:rgba(255,255,255,0.6); margin-bottom:1rem; }
+    .grant-card-sm .grant-amount { font-family:'DM Serif Display',serif; font-size:2.2rem; color:var(--orange); line-height:1; }
+    .grant-card-sm .grant-amount-label { font-size:0.65rem; color:rgba(255,255,255,0.45); margin-top:0.2rem; }
+    .grant-link { display:inline-block; margin-top:0.8rem; font-family:'Syne',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--orange); text-decoration:none; border-bottom:1px solid rgba(242,140,56,0.4); padding-bottom:1px; transition:border-color 0.2s; }
+    .grant-link:hover { border-color:var(--orange); }
 
-    /* SKILLS */
-    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-    .skill-group { padding: 1.8rem; border: 1px solid rgba(196,98,45,0.15); background: var(--cream); }
-    .skill-group-title { font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 1rem; }
-    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-    .skill-tag { font-size: 0.74rem; padding: 0.28rem 0.65rem; background: var(--white); border: 1px solid rgba(61,46,32,0.15); color: var(--mid); transition: all 0.15s; cursor: default; }
-    .skill-tag:hover { background: var(--terracotta); color: white; border-color: var(--terracotta); }
+    /* Future grants placeholder */
+    .grant-card-future { border:2px dashed rgba(85,107,47,0.25); padding:1.5rem; }
+    .grant-card-future p { font-size:0.82rem; color:var(--muted); font-style:italic; line-height:1.6; }
 
-    /* GALLERY */
-    .gallery-filters { display: flex; gap: 0.7rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
-    .filter-btn { font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.5rem 1.1rem; background: transparent; border: 2px solid rgba(196,98,45,0.25); color: var(--muted); cursor: pointer; transition: all 0.2s; }
-    .filter-btn:hover, .filter-btn.active { background: var(--terracotta); color: white; border-color: var(--terracotta); }
-    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
-    .gallery-item { position: relative; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; background: #e8dfc8; border: 1px solid rgba(196,98,45,0.12); }
-    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; display: block; }
-    .gallery-item:hover img { transform: scale(1.05); }
-    .gallery-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,20,16,0.85) 0%, transparent 60%); opacity: 0; transition: opacity 0.3s; display: flex; flex-direction: column; justify-content: flex-end; padding: 1.2rem; }
-    .gallery-item:hover .gallery-overlay { opacity: 1; }
-    .gallery-overlay-title { font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700; color: white; margin-bottom: 0.2rem; }
-    .gallery-overlay-tag { font-size: 0.65rem; color: var(--terracotta); text-transform: uppercase; letter-spacing: 0.1em; }
-    .gallery-item.hidden { display: none; }
-    .gallery-placeholder { grid-column: 1 / -1; padding: 4rem 2rem; text-align: center; border: 2px dashed rgba(196,98,45,0.2); }
-    .gallery-placeholder p { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 1.1rem; color: var(--muted); margin-bottom: 0.5rem; }
-    .gallery-placeholder small { font-size: 0.8rem; color: var(--muted); opacity: 0.7; }
+    /* ── EXPERIENCE ── */
+    .timeline { position:relative; padding-left:2.5rem; }
+    .timeline::before { content:''; position:absolute; left:0; top:0; bottom:0; width:2px; background:linear-gradient(to bottom,var(--olive),rgba(85,107,47,0.1)); }
+    .timeline-item { position:relative; margin-bottom:3rem; }
+    .timeline-dot { position:absolute; left:-2.9rem; top:0.35rem; width:11px; height:11px; background:var(--orange); border:3px solid var(--bg); border-radius:50%; }
+    .alt .timeline-dot { border-color:var(--white); }
+    .timeline-meta { font-family:'Syne',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--orange); margin-bottom:0.3rem; }
+    .timeline-title { font-family:'DM Serif Display',serif; font-size:1.3rem; letter-spacing:-0.02em; color:var(--text); margin-bottom:0.15rem; }
+    .timeline-org { font-size:0.84rem; color:var(--muted); margin-bottom:0.8rem; }
+    .timeline-points { list-style:none; display:flex; flex-direction:column; gap:0.4rem; }
+    .timeline-points li { font-size:0.86rem; font-weight:300; color:var(--mid); line-height:1.65; padding-left:1rem; position:relative; }
+    .timeline-points li::before { content:'→'; position:absolute; left:0; color:var(--olive); font-size:0.7rem; top:0.08rem; }
 
-    /* THOUGHTS */
-    .blog-intro { max-width: 620px; margin-bottom: 3rem; }
-    .blog-intro p { font-size: 1rem; font-weight: 300; color: var(--mid); line-height: 1.8; }
-    .blog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-    .blog-card { padding: 2rem; border: 1px solid rgba(196,98,45,0.15); background: var(--white); transition: box-shadow 0.2s, transform 0.15s; }
-    .blog-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.07); transform: translateY(-3px); }
-    .blog-cat { font-family: 'Syne', sans-serif; font-size: 0.63rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 0.6rem; }
-    .blog-title { font-family: 'DM Serif Display', serif; font-size: 1.2rem; letter-spacing: -0.02em; color: var(--deep); margin-bottom: 0.6rem; line-height: 1.3; }
-    .blog-excerpt { font-size: 0.86rem; font-weight: 300; color: var(--mid); line-height: 1.7; margin-bottom: 1rem; }
-    .blog-meta { font-size: 0.72rem; color: var(--muted); display: flex; align-items: center; gap: 1rem; }
-    .reading-list { margin-top: 4rem; }
-    .reading-list h3 { font-family: 'DM Serif Display', serif; font-size: 1.5rem; font-style: italic; color: var(--deep); margin-bottom: 1.5rem; }
-    .book-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
-    .book-card { padding: 1.5rem; border: 1px solid rgba(196,98,45,0.15); text-align: center; transition: box-shadow 0.2s; background: var(--white); }
-    .book-card:hover { box-shadow: 4px 4px 0 rgba(196,98,45,0.15); }
-    .book-emoji { font-size: 2rem; margin-bottom: 0.6rem; display: block; }
-    .book-title { font-family: 'DM Serif Display', serif; font-size: 0.9rem; color: var(--deep); margin-bottom: 0.3rem; line-height: 1.3; }
-    .book-author { font-size: 0.72rem; color: var(--muted); margin-bottom: 0.5rem; }
-    .book-note { font-size: 0.76rem; font-style: italic; color: var(--terracotta); line-height: 1.5; }
+    /* ── SKILLS ── */
+    .skills-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
+    .skill-group { padding:1.8rem; border:1px solid rgba(85,107,47,0.15); background:var(--bg); }
+    .skill-group-title { font-family:'Syne',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--olive); margin-bottom:1rem; }
+    .skill-tags { display:flex; flex-wrap:wrap; gap:0.4rem; }
+    .skill-tag { font-size:0.74rem; padding:0.28rem 0.65rem; background:var(--white); border:1px solid rgba(85,107,47,0.18); color:var(--mid); transition:all 0.15s; cursor:default; }
+    .skill-tag:hover { background:var(--olive); color:white; border-color:var(--olive); }
 
-    /* CONTACT */
-    .contact-dark { background: var(--deep); padding: 6rem 8rem; }
-    .contact-dark h2, .contact-dark .section-num { color: var(--cream); }
-    .contact-dark h2 em { color: var(--terracotta); }
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-    .contact-text p { font-size: 1rem; font-weight: 300; color: rgba(245,240,232,0.7); line-height: 1.8; margin-bottom: 2rem; }
-    .contact-links { display: flex; flex-direction: column; gap: 0.8rem; }
-    .contact-link { display: flex; align-items: center; gap: 1rem; padding: 0.9rem 1.4rem; border: 1px solid rgba(245,240,232,0.1); text-decoration: none; color: var(--cream); transition: all 0.2s; }
-    .contact-link:hover { background: rgba(196,98,45,0.15); border-color: rgba(196,98,45,0.4); }
-    .contact-link-icon { font-size: 1.1rem; }
-    .contact-link-label { font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--terracotta); display: block; margin-bottom: 0.1rem; }
-    .contact-link-val { font-size: 0.8rem; color: rgba(245,240,232,0.6); }
+    /* ── GALLERY ── */
+    .gallery-filters { display:flex; gap:0.7rem; flex-wrap:wrap; margin-bottom:2.5rem; }
+    .filter-btn { font-family:'Syne',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:0.5rem 1.1rem; background:transparent; border:2px solid rgba(85,107,47,0.25); color:var(--muted); cursor:pointer; transition:all 0.2s; }
+    .filter-btn:hover, .filter-btn.active { background:var(--olive); color:white; border-color:var(--olive); }
+    .gallery-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; }
+    .gallery-item { position:relative; overflow:hidden; aspect-ratio:4/3; cursor:pointer; background:var(--sand); border:1px solid rgba(85,107,47,0.12); }
+    .gallery-item img { width:100%; height:100%; object-fit:cover; transition:transform 0.4s; display:block; }
+    .gallery-item:hover img { transform:scale(1.05); }
+    .gallery-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(46,46,46,0.85) 0%,transparent 60%); opacity:0; transition:opacity 0.3s; display:flex; flex-direction:column; justify-content:flex-end; padding:1.2rem; }
+    .gallery-item:hover .gallery-overlay { opacity:1; }
+    .gallery-overlay-title { font-family:'Syne',sans-serif; font-size:0.78rem; font-weight:700; color:white; margin-bottom:0.2rem; }
+    .gallery-overlay-tag { font-size:0.65rem; color:var(--orange); text-transform:uppercase; letter-spacing:0.1em; }
+    .gallery-item.hidden { display:none; }
+    .gallery-placeholder { grid-column:1/-1; padding:4rem 2rem; text-align:center; border:2px dashed rgba(85,107,47,0.2); }
+    .gallery-placeholder p { font-family:'DM Serif Display',serif; font-style:italic; font-size:1.1rem; color:var(--muted); margin-bottom:0.5rem; }
+    .gallery-placeholder small { font-size:0.8rem; color:var(--muted); opacity:0.7; }
 
-    footer { background: var(--deep); border-top: 1px solid rgba(245,240,232,0.08); padding: 1.5rem 8rem; display: flex; justify-content: space-between; align-items: center; }
-    footer p { font-size: 0.73rem; color: rgba(245,240,232,0.3); }
-    footer a { color: var(--terracotta); text-decoration: none; }
+    /* ── THOUGHTS ── */
+    .blog-intro { max-width:620px; margin-bottom:3rem; }
+    .blog-intro p { font-size:1rem; font-weight:300; color:var(--mid); line-height:1.8; }
+    .blog-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+    .blog-card { padding:2rem; border:1px solid rgba(85,107,47,0.15); background:var(--white); transition:box-shadow 0.2s,transform 0.15s; }
+    .blog-card:hover { box-shadow:0 6px 24px rgba(0,0,0,0.07); transform:translateY(-3px); }
+    .blog-cat { font-family:'Syne',sans-serif; font-size:0.63rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--orange); margin-bottom:0.6rem; }
+    .blog-title { font-family:'DM Serif Display',serif; font-size:1.2rem; letter-spacing:-0.02em; color:var(--text); margin-bottom:0.6rem; line-height:1.3; }
+    .blog-excerpt { font-size:0.86rem; font-weight:300; color:var(--mid); line-height:1.7; margin-bottom:1rem; }
+    .blog-meta { font-size:0.72rem; color:var(--muted); display:flex; align-items:center; gap:1rem; }
+    .reading-list { margin-top:4rem; }
+    .reading-list h3 { font-family:'DM Serif Display',serif; font-size:1.5rem; font-style:italic; color:var(--text); margin-bottom:1.5rem; }
+    .book-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1.2rem; }
+    .book-card { padding:1.5rem; border:1px solid rgba(85,107,47,0.15); text-align:center; transition:box-shadow 0.2s; background:var(--white); }
+    .book-card:hover { box-shadow:4px 4px 0 rgba(85,107,47,0.15); }
+    .book-emoji { font-size:2rem; margin-bottom:0.6rem; display:block; }
+    .book-title { font-family:'DM Serif Display',serif; font-size:0.9rem; color:var(--text); margin-bottom:0.3rem; line-height:1.3; }
+    .book-author { font-size:0.72rem; color:var(--muted); margin-bottom:0.5rem; }
+    .book-note { font-size:0.76rem; font-style:italic; color:var(--olive); line-height:1.5; }
 
-    /* ANIMATIONS */
-    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    /* ── CONTACT ── */
+    .contact-dark { background:#2E3320; padding:6rem 8rem; }
+    .contact-dark .section-num { color:var(--orange); opacity:0.9; }
+    .contact-dark h2 { color:#f0ede4; }
+    .contact-dark h2 em { color:var(--orange); }
+    .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start; }
+    .contact-text p { font-size:1rem; font-weight:300; color:rgba(240,237,228,0.72); line-height:1.8; margin-bottom:2rem; }
+    .contact-links { display:flex; flex-direction:column; gap:0.8rem; }
+    .contact-link { display:flex; align-items:center; gap:1rem; padding:0.9rem 1.4rem; border:1px solid rgba(240,237,228,0.1); text-decoration:none; color:#f0ede4; transition:all 0.2s; }
+    .contact-link:hover { background:rgba(242,140,56,0.15); border-color:rgba(242,140,56,0.4); }
+    .contact-link-icon { font-size:1.1rem; }
+    .contact-link-label { font-family:'Syne',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--orange); display:block; margin-bottom:0.1rem; }
+    .contact-link-val { font-size:0.8rem; color:rgba(240,237,228,0.6); }
 
-    /* LIGHTBOX */
-    .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 200; align-items: center; justify-content: center; }
-    .lightbox.open { display: flex; }
-    .lightbox img { max-width: 90vw; max-height: 85vh; object-fit: contain; }
-    .lightbox-close { position: absolute; top: 1.5rem; right: 2rem; font-size: 2rem; color: white; cursor: pointer; background: none; border: none; }
+    footer { background:#2E3320; border-top:1px solid rgba(240,237,228,0.08); padding:1.5rem 8rem; display:flex; justify-content:space-between; align-items:center; }
+    footer p { font-size:0.73rem; color:rgba(240,237,228,0.3); }
+    footer a { color:var(--orange); text-decoration:none; }
 
-    /* ═══ MOBILE RESPONSIVE ═══ */
+    /* ── ANIMATIONS ── */
+    .fade-up { opacity:0; transform:translateY(28px); transition:opacity 0.7s ease,transform 0.7s ease; }
+    .fade-up.visible { opacity:1; transform:translateY(0); }
+
+    /* ── LIGHTBOX ── */
+    .lightbox { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.92); z-index:200; align-items:center; justify-content:center; }
+    .lightbox.open { display:flex; }
+    .lightbox img { max-width:90vw; max-height:85vh; object-fit:contain; }
+    .lightbox-close { position:absolute; top:1.5rem; right:2rem; font-size:2rem; color:white; cursor:pointer; background:none; border:none; }
+
+    /* ══════════════ MOBILE ══════════════ */
+    @media (max-width: 1100px) {
+      .research-grants-layout { grid-template-columns:1fr; }
+      .grants-sidebar { flex-direction:row; flex-wrap:wrap; gap:1rem; }
+      .grant-card-sm, .grant-card-future { flex:1 1 280px; }
+    }
     @media (max-width: 900px) {
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
-      section { padding: 4rem 1.5rem; }
-      .contact-dark { padding: 4rem 1.5rem; }
-      footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
-      /* Hero stack */
-      #hero { grid-template-columns: 1fr; min-height: auto; }
-      .hero-left { padding: 6rem 1.5rem 2rem; order: 2; }
-      .hero-right { padding: 5rem 1.5rem 1rem; order: 1; }
-      .profile-pic-wrapper, .profile-pic, .profile-pic-placeholder { width: 160px; height: 160px; }
-      .hero-stats { gap: 1.5rem; }
-      .stat-num { font-size: 1.6rem; }
-      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .gallery-grid { grid-template-columns: 1fr 1fr; }
-      .blog-grid { grid-template-columns: 1fr; }
-      .book-grid { grid-template-columns: 1fr 1fr; }
-      .skills-grid { grid-template-columns: 1fr 1fr; }
-      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .grant-card { grid-template-columns: 1fr; padding: 2rem; }
-      .grant-amount { text-align: left; }
-      .pub-card { grid-template-columns: 1fr; gap: 0.3rem; }
+      nav { padding:1rem 1.5rem; }
+      .nav-links { display:none; }
+      .hamburger { display:flex; }
+      section { padding:4rem 1.5rem; }
+      .contact-dark { padding:4rem 1.5rem; }
+      footer { padding:1.5rem; flex-direction:column; gap:0.5rem; text-align:center; }
+      #hero { grid-template-columns:1fr; min-height:auto; }
+      .hero-left { padding:6rem 1.5rem 2rem; order:2; }
+      .hero-right { padding:5rem 1.5rem 1rem; order:1; }
+      .profile-pic-wrapper, .profile-pic, .profile-pic-placeholder { width:150px; height:150px; }
+      .hero-stats { gap:1.5rem; }
+      .stat-num { font-size:1.6rem; }
+      .about-grid { grid-template-columns:1fr; gap:2.5rem; }
+      .gallery-grid { grid-template-columns:1fr 1fr; }
+      .blog-grid { grid-template-columns:1fr; }
+      .book-grid { grid-template-columns:1fr 1fr; }
+      .skills-grid { grid-template-columns:1fr 1fr; }
+      .contact-grid { grid-template-columns:1fr; gap:2.5rem; }
+      .grants-sidebar { flex-direction:column; }
     }
     @media (max-width: 540px) {
-      .gallery-grid { grid-template-columns: 1fr; }
-      .skills-grid { grid-template-columns: 1fr; }
-      .book-grid { grid-column: 1fr 1fr; grid-template-columns: 1fr 1fr; }
-      .hero-stats { flex-wrap: wrap; justify-content: center; gap: 1.2rem; }
-      h2 { font-size: 1.6rem; }
-      h1 { font-size: 2.4rem; }
+      .gallery-grid { grid-template-columns:1fr; }
+      .skills-grid { grid-template-columns:1fr; }
+      .hero-stats { flex-wrap:wrap; justify-content:center; gap:1.2rem; }
+      h2 { font-size:1.6rem; }
+      h1 { font-size:2.4rem; }
+      .hero-ctas { flex-direction:column; }
+      .btn-primary, .btn-secondary, .btn-outline { text-align:center; }
     }
   </style>
 </head>
@@ -229,7 +259,7 @@
 
 <!-- NAV -->
 <nav>
-  <span class="nav-logo" onclick="showPage('home')">Saumya Gupta</span>
+  <span class="nav-logo" onclick="showPage('home')">Dr. Saumya Gupta</span>
   <ul class="nav-links">
     <li><a onclick="showPage('home'); scrollSec('about')">About</a></li>
     <li><a onclick="showPage('home'); scrollSec('publications')">Research</a></li>
@@ -256,31 +286,38 @@
   <a onclick="closeMob(); showPage('home'); scrollSec('contact-section')">Contact</a>
 </div>
 
-<!-- ══════════════════════════════════
+<!-- ══════════════════════════════
      HOME
-══════════════════════════════════ -->
+══════════════════════════════ -->
 <div id="home" class="page active">
 
+<!-- HERO -->
 <section id="hero">
   <div class="hero-bg"></div>
   <div class="hero-grid-pattern"></div>
   <div class="hero-left">
     <span class="hero-tag">Postdoctoral Research Associate · UCF</span>
-    <h1>Saumya<br><em>Gupta</em></h1>
+    <h1>Dr. Saumya<br><em>Gupta</em></h1>
     <p class="hero-subtitle">Human-Centered Autonomy &amp; Mobility Researcher</p>
     <p class="hero-mission">I translate human behavior into systems that protect people — bridging engineering rigor, human psychology, and storytelling to shape urban mobility that is technically advanced, socially inclusive, and safe.</p>
     <div class="hero-ctas">
       <a href="https://scholar.google.com/citations?user=nePcSDMAAAAJ&hl=en" target="_blank" class="btn-primary">Google Scholar</a>
       <a onclick="scrollSec('publications')" class="btn-outline">View Research</a>
+      <!--
+        DOWNLOAD CV BUTTON:
+        1. Upload your CV as "cv.pdf" to GitHub alongside index.html
+        2. Uncomment the line below and delete this comment block
+        <a href="cv.pdf" download="SaumyaGupta_CV.pdf" class="btn-secondary">Download CV</a>
+      -->
+      <a href="cv.pdf" download="SaumyaGupta_CV.pdf" class="btn-secondary">Download CV</a>
     </div>
   </div>
   <div class="hero-right">
     <!--
-      HOW TO ADD YOUR PROFILE PHOTO:
-      1. Upload a photo (e.g. "profile.jpg") to GitHub in the same folder as index.html
-      2. Delete the <div class="profile-pic-placeholder">...</div> block below
-      3. Uncomment and use this line instead:
-         <img src="profile.jpg" alt="Saumya Gupta" class="profile-pic" />
+      PROFILE PHOTO:
+      1. Upload "profile.jpg" to GitHub in the same folder as index.html
+      2. Delete the placeholder div below
+      3. Uncomment: <img src="profile.jpg" alt="Dr. Saumya Gupta" class="profile-pic" />
     -->
     <div class="profile-pic-wrapper">
       <div class="profile-pic-placeholder">
@@ -296,6 +333,7 @@
   </div>
 </section>
 
+<!-- ABOUT -->
 <section id="about" class="alt">
   <div class="section-header fade-up"><span class="section-num">01</span><h2>About <em>My Work</em></h2></div>
   <div class="about-grid">
@@ -314,20 +352,123 @@
   </div>
 </section>
 
+<!-- RESEARCH + GRANTS (side by side) -->
 <section id="publications">
-  <div class="section-header fade-up"><span class="section-num">02</span><h2>Research &amp; <em>Publications</em></h2></div>
-  <div class="pub-list">
-    <div class="pub-card fade-up"><div class="pub-year">2025</div><div><div class="pub-title">A Modular Ray-Tracing Framework for Simulating Air-to-Ground Communication in Urban Environments</div><div class="pub-venue">IEEE / AIAA DATC · 44th Digital Avionics Systems Conference</div><div class="pub-authors">Saumya Gupta &amp; Adan Vela</div></div></div>
-    <div class="pub-card fade-up"><div class="pub-year">2024</div><div><div class="pub-title">A Machine Learning Based Approach for Smart and Automated Data Collection: Applications in Transportation</div><div class="pub-venue">Transportation in Developing Economies, 10(1), 15</div><div class="pub-authors">Shaurya Agarwal, Saumya Gupta, Pushkin Kachroo &amp; Nilesh Dhingra</div></div></div>
-    <div class="pub-card fade-up"><div class="pub-year">2023</div><div><div class="pub-title">HISS: A Human Trajectory Planning Simulation Framework for Shared Space</div><div class="pub-venue">IEEE Open Journal of Intelligent Transportation Systems</div><div class="pub-authors">Saumya Gupta, Mohamed H. Zaki &amp; Adan Vela</div></div></div>
-    <div class="pub-card fade-up"><div class="pub-year">2022</div><div><div class="pub-title">Generative Modeling of Pedestrian Behavior: A Receding Horizon Optimization-Based Trajectory Planning Approach</div><div class="pub-venue">IEEE Access, Vol. 10, pp. 81624–81641</div><div class="pub-authors">Saumya Gupta, Mohamed H. Zaki &amp; Adan Vela</div></div></div>
-    <div class="pub-card fade-up"><div class="pub-year">2017</div><div><div class="pub-title">Optimal Control for Congestion Pricing: Theory, Simulation and Evaluation</div><div class="pub-venue">IEEE Transactions on Intelligent Transportation Systems, 18(5)</div><div class="pub-authors">Pushkin Kachroo, Saumya Gupta, Shaurya Agarwal &amp; Kaan Ozbay</div></div></div>
-    <div class="pub-card fade-up"><div class="pub-year">2026</div><div><div class="pub-title">Data-Driven Synthetic Trajectory Generation for Small Uncrewed Aircraft Systems <span class="pub-badge submitted">Submitted</span></div><div class="pub-venue">IEEE / 45th DASC Conference</div><div class="pub-authors">Saumya Gupta &amp; Adan Vela</div></div></div>
-    <div class="pub-card fade-up"><div class="pub-year">2026</div><div><div class="pub-title">Generation of Synthetic Cities for AAM Research <span class="pub-badge submitted">Submitted</span></div><div class="pub-venue">IEEE / 45th DASC Conference</div><div class="pub-authors">Saumya Gupta &amp; Adan Vela</div></div></div>
-    <div class="pub-card fade-up"><div class="pub-year">TBD</div><div><div class="pub-title">Trajectory-Aware Route Maintenance Framework for Enhanced Pedestrian Networks <span class="pub-badge prep">In Preparation</span></div><div class="pub-venue">IEEE</div><div class="pub-authors">Saumya Gupta &amp; Mohamed H. Zaki</div></div></div>
+  <div class="section-header fade-up"><span class="section-num">02</span><h2>Research, Publications <em>&amp; Grants</em></h2></div>
+
+  <div class="research-grants-layout">
+
+    <!-- LEFT: PUBLICATIONS -->
+    <div>
+      <div class="pub-list">
+
+        <div class="pub-card fade-up">
+          <div class="pub-header">
+            <span class="pub-year">2025</span>
+            <div class="pub-title"><a href="https://ieeexplore.ieee.org" target="_blank">A Modular Ray-Tracing Framework for Simulating Air-to-Ground Communication in Urban Environments</a></div>
+          </div>
+          <div class="pub-venue">IEEE / AIAA DATC · 44th Digital Avionics Systems Conference</div>
+          <div class="pub-authors">Saumya Gupta &amp; Adan Vela</div>
+        </div>
+
+        <div class="pub-card fade-up">
+          <div class="pub-header">
+            <span class="pub-year">2024</span>
+            <div class="pub-title"><a href="https://doi.org/10.1007/s40890-024-00209-9" target="_blank">A Machine Learning Based Approach for Smart and Automated Data Collection: Applications in Transportation</a></div>
+          </div>
+          <div class="pub-venue">Transportation in Developing Economies, 10(1), 15</div>
+          <div class="pub-authors">Shaurya Agarwal, Saumya Gupta, Pushkin Kachroo &amp; Nilesh Dhingra</div>
+        </div>
+
+        <div class="pub-card fade-up">
+          <div class="pub-header">
+            <span class="pub-year">2023</span>
+            <div class="pub-title"><a href="https://ieeexplore.ieee.org" target="_blank">HISS: A Human Trajectory Planning Simulation Framework for Shared Space</a></div>
+          </div>
+          <div class="pub-venue">IEEE Open Journal of Intelligent Transportation Systems</div>
+          <div class="pub-authors">Saumya Gupta, Mohamed H. Zaki &amp; Adan Vela</div>
+        </div>
+
+        <div class="pub-card fade-up">
+          <div class="pub-header">
+            <span class="pub-year">2022</span>
+            <div class="pub-title"><a href="https://doi.org/10.1109/ACCESS.2022.3193805" target="_blank">Generative Modeling of Pedestrian Behavior: A Receding Horizon Optimization-Based Trajectory Planning Approach</a></div>
+          </div>
+          <div class="pub-venue">IEEE Access, Vol. 10, pp. 81624–81641</div>
+          <div class="pub-authors">Saumya Gupta, Mohamed H. Zaki &amp; Adan Vela</div>
+        </div>
+
+        <div class="pub-card fade-up">
+          <div class="pub-header">
+            <span class="pub-year">2017</span>
+            <div class="pub-title"><a href="https://doi.org/10.1109/TITS.2016.2598857" target="_blank">Optimal Control for Congestion Pricing: Theory, Simulation and Evaluation</a></div>
+          </div>
+          <div class="pub-venue">IEEE Transactions on Intelligent Transportation Systems, 18(5)</div>
+          <div class="pub-authors">Pushkin Kachroo, Saumya Gupta, Shaurya Agarwal &amp; Kaan Ozbay</div>
+        </div>
+
+        <div class="pub-card fade-up">
+          <div class="pub-header">
+            <span class="pub-year">2026</span>
+            <div class="pub-title">Data-Driven Synthetic Trajectory Generation for Small Uncrewed Aircraft Systems <span class="pub-badge submitted">Submitted</span></div>
+          </div>
+          <div class="pub-venue">IEEE / 45th DASC Conference</div>
+          <div class="pub-authors">Saumya Gupta &amp; Adan Vela</div>
+        </div>
+
+        <div class="pub-card fade-up">
+          <div class="pub-header">
+            <span class="pub-year">2026</span>
+            <div class="pub-title">Generation of Synthetic Cities for AAM Research <span class="pub-badge submitted">Submitted</span></div>
+          </div>
+          <div class="pub-venue">IEEE / 45th DASC Conference</div>
+          <div class="pub-authors">Saumya Gupta &amp; Adan Vela</div>
+        </div>
+
+        <div class="pub-card fade-up">
+          <div class="pub-header">
+            <span class="pub-year">TBD</span>
+            <div class="pub-title">Trajectory-Aware Route Maintenance Framework for Enhanced Pedestrian Networks <span class="pub-badge prep">In Preparation</span></div>
+          </div>
+          <div class="pub-venue">IEEE</div>
+          <div class="pub-authors">Saumya Gupta &amp; Mohamed H. Zaki</div>
+        </div>
+
+        <div style="margin-top:1rem;">
+          <a href="https://scholar.google.com/citations?user=nePcSDMAAAAJ&hl=en" target="_blank" class="btn-outline" style="font-size:0.72rem;">View All on Google Scholar →</a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RIGHT: GRANTS SIDEBAR -->
+    <div id="grants">
+      <div class="grants-sidebar">
+        <div>
+          <div class="grant-sidebar-header">Funded <em>Research</em></div>
+          <p style="font-size:0.82rem; color:var(--muted); margin-bottom:1.5rem; font-weight:300;">Competitive grants supporting my work in digital twins, AAM, and human-centered mobility systems.</p>
+        </div>
+
+        <div class="grant-card-sm fade-up">
+          <div class="grant-agency">NASA MPLAN · 2025</div>
+          <div class="grant-title">A Digital Twin for AAM Communication Channels</div>
+          <div class="grant-role">Principal Investigator (90%) · UCF</div>
+          <div class="grant-amount">$50,000</div>
+          <div class="grant-amount-label">Total Award</div>
+          <a href="https://www.herox.com/blog/1133-nasa-funds-over-15m-in-planning-prizes-to-minority" target="_blank" class="grant-link">View announcement ↗</a>
+        </div>
+
+        <div class="grant-card-future fade-up">
+          <p>🔭 Additional grants and proposals in progress — check back for updates.</p>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </section>
 
+<!-- EXPERIENCE -->
 <section id="experience" class="alt">
   <div class="section-header fade-up"><span class="section-num">03</span><h2>Professional <em>Experience</em></h2></div>
   <div class="timeline">
@@ -376,20 +517,9 @@
   </div>
 </section>
 
-<section id="grants">
-  <div class="section-header fade-up"><span class="section-num">04</span><h2>Funded <em>Research</em></h2></div>
-  <div class="grant-card fade-up">
-    <div>
-      <div class="grant-agency">NASA MPLAN · MUREP Partnership Learning Annual Notification 2025</div>
-      <div class="grant-title">A Digital Twin for AAM Communication Channels</div>
-      <div class="grant-role">Role: Principal Investigator (90%) · University of Central Florida</div>
-    </div>
-    <div><div class="grant-amount">$50K</div><div class="grant-amount-label">Total Award</div></div>
-  </div>
-</section>
-
-<section id="skills" class="alt">
-  <div class="section-header fade-up"><span class="section-num">05</span><h2>Technical <em>Skills</em></h2></div>
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header fade-up"><span class="section-num">04</span><h2>Technical <em>Skills</em></h2></div>
   <div class="skills-grid">
     <div class="skill-group fade-up"><div class="skill-group-title">Programming &amp; Libraries</div><div class="skill-tags"><span class="skill-tag">Python</span><span class="skill-tag">MATLAB</span><span class="skill-tag">R</span><span class="skill-tag">PyTorch</span><span class="skill-tag">Scikit-learn</span><span class="skill-tag">Pandas</span><span class="skill-tag">Matplotlib</span></div></div>
     <div class="skill-group fade-up"><div class="skill-group-title">ML &amp; Modeling</div><div class="skill-tags"><span class="skill-tag">LSTM</span><span class="skill-tag">Reinforcement Learning</span><span class="skill-tag">NLP</span><span class="skill-tag">Optimal Control</span><span class="skill-tag">Receding Horizon</span><span class="skill-tag">Mixed Integer Programming</span></div></div>
@@ -400,44 +530,45 @@
   </div>
 </section>
 
+<!-- CONTACT -->
 <div id="contact-section" class="contact-dark">
-  <div class="section-header fade-up" style="margin-bottom:3rem;"><span class="section-num">06</span><h2>Get in <em>Touch</em></h2></div>
+  <div class="section-header fade-up" style="margin-bottom:3rem;"><span class="section-num">05</span><h2>Get in <em>Touch</em></h2></div>
   <div class="contact-grid">
     <div class="contact-text fade-up">
       <p>Open to research collaborations, faculty positions, and conversations about human-centered mobility, AAM, intelligent transportation systems, and urban safety.</p>
-      <a href="mailto:your@email.com" class="btn-primary">Send an Email</a>
+      <a href="mailto:your@email.com" class="btn-secondary">Send an Email</a>
     </div>
     <div class="contact-links fade-up">
       <a href="https://scholar.google.com/citations?user=nePcSDMAAAAJ&hl=en" target="_blank" class="contact-link"><span class="contact-link-icon">📚</span><div><span class="contact-link-label">Google Scholar</span><span class="contact-link-val">Publications &amp; citations</span></div></a>
       <a href="https://stars.library.ucf.edu/etd2020/1381/" target="_blank" class="contact-link"><span class="contact-link-icon">🎓</span><div><span class="contact-link-label">Ph.D. Dissertation</span><span class="contact-link-val">Generative Modeling of Human Behavior · UCF</span></div></a>
       <a href="https://digitalscholarship.unlv.edu/thesesdissertations/2781/" target="_blank" class="contact-link"><span class="contact-link-icon">📐</span><div><span class="contact-link-label">M.S. Thesis</span><span class="contact-link-val">Complex Traffic Network Modeling · UNLV</span></div></a>
       <a href="https://linkedin.com/in/your-linkedin" target="_blank" class="contact-link"><span class="contact-link-icon">💼</span><div><span class="contact-link-label">LinkedIn</span><span class="contact-link-val">Connect professionally</span></div></a>
+      <a href="cv.pdf" download="SaumyaGupta_CV.pdf" class="contact-link"><span class="contact-link-icon">📄</span><div><span class="contact-link-label">Download CV</span><span class="contact-link-val">PDF · updated 2025</span></div></a>
     </div>
   </div>
 </div>
 
 <footer>
-  <p>© 2025 Saumya Gupta · Human-Centered Mobility Research</p>
+  <p>© 2025 Dr. Saumya Gupta · Human-Centered Mobility Research</p>
   <p>UCF · Industrial Engineering &amp; Management Systems</p>
 </footer>
 </div><!-- /home -->
 
 
-<!-- ══════════════════════════════════
+<!-- ══════════════════════════════
      GALLERY PAGE
-══════════════════════════════════ -->
+══════════════════════════════ -->
 <div id="gallery-page" class="page">
 <section style="padding-top:7rem;">
   <div class="section-header fade-up"><span class="section-num">◎</span><h2>Gallery &amp; <em>Moments</em></h2></div>
-  <p class="fade-up" style="font-size:0.95rem; color:var(--muted); margin-bottom:2rem; font-weight:300; max-width:560px; line-height:1.75;">
+  <p class="fade-up" style="font-size:0.95rem;color:var(--muted);margin-bottom:2rem;font-weight:300;max-width:560px;line-height:1.75;">
     Snapshots from conferences, the lab, and time with collaborators and students. Science is also about the people and places behind the work.
   </p>
-
   <!--
-    HOW TO ADD YOUR PHOTOS:
+    HOW TO ADD PHOTOS:
     1. Create an "images/" folder in your GitHub repo
-    2. Upload your photos there (e.g. images/trb2024.jpg)
-    3. For each photo, add a block like this inside the gallery-grid div:
+    2. Upload photos there (e.g. images/trb2024.jpg)
+    3. Add a block like this inside gallery-grid:
 
     <div class="gallery-item" data-cat="conferences" onclick="openLightbox('images/trb2024.jpg','TRB 2024')">
       <img src="images/trb2024.jpg" alt="TRB Annual Meeting 2024" loading="lazy" />
@@ -447,9 +578,8 @@
       </div>
     </div>
 
-    data-cat options: "conferences" | "lab" | "presentations" | "people"
+    data-cat values: "conferences" | "lab" | "presentations" | "people"
   -->
-
   <div class="gallery-filters fade-up">
     <button class="filter-btn active" onclick="filterGallery('all',this)">All</button>
     <button class="filter-btn" onclick="filterGallery('conferences',this)">Conferences</button>
@@ -457,7 +587,6 @@
     <button class="filter-btn" onclick="filterGallery('presentations',this)">Presentations</button>
     <button class="filter-btn" onclick="filterGallery('people',this)">With People</button>
   </div>
-
   <div class="gallery-grid fade-up" id="galleryGrid">
     <div class="gallery-placeholder">
       <p>Your photos will appear here ✨</p>
@@ -465,25 +594,19 @@
     </div>
   </div>
 </section>
-<footer><p>© 2025 Saumya Gupta</p><p><a onclick="showPage('home')">← Back to main site</a></p></footer>
-</div><!-- /gallery-page -->
+<footer><p>© 2025 Dr. Saumya Gupta</p><p><a onclick="showPage('home')">← Back to main site</a></p></footer>
+</div>
 
 
-<!-- ══════════════════════════════════
+<!-- ══════════════════════════════
      THOUGHTS PAGE
-══════════════════════════════════ -->
+══════════════════════════════ -->
 <div id="thoughts-page" class="page">
 <section style="padding-top:7rem; background:var(--white);">
   <div class="section-header fade-up"><span class="section-num">✦</span><h2>Thoughts &amp; <em>Reflections</em></h2></div>
-
   <div class="blog-intro fade-up">
     <p>Beyond equations and simulations, I'm curious about how we learn, how cities shape people, and what it means to do meaningful work. This is where I share books that changed how I see things, lessons from research life, and thoughts worth returning to.</p>
   </div>
-
-  <!--
-    TO ADD A NEW POST: copy one .blog-card block, update the content, and save.
-    Keep posts personal and honest — that's what makes this section valuable to readers.
-  -->
   <div class="blog-grid">
     <div class="blog-card fade-up">
       <div class="blog-cat">Research &amp; Life</div>
@@ -510,7 +633,6 @@
       <div class="blog-meta"><span>✍️ Saumya Gupta</span><span>📅 Coming soon</span></div>
     </div>
   </div>
-
   <div class="reading-list fade-up">
     <h3>Books I Keep Recommending</h3>
     <div class="book-grid">
@@ -521,8 +643,8 @@
     </div>
   </div>
 </section>
-<footer><p>© 2025 Saumya Gupta</p><p><a onclick="showPage('home')">← Back to main site</a></p></footer>
-</div><!-- /thoughts-page -->
+<footer><p>© 2025 Dr. Saumya Gupta</p><p><a onclick="showPage('home')">← Back to main site</a></p></footer>
+</div>
 
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
@@ -534,11 +656,10 @@
   function showPage(id) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById(id).classList.add('active');
-    window.scrollTo(0,0);
-    initObs();
+    window.scrollTo(0,0); initObs();
   }
   function scrollSec(id) {
-    setTimeout(() => { const el = document.getElementById(id); if(el) el.scrollIntoView({behavior:'smooth'}); }, 60);
+    setTimeout(() => { const el=document.getElementById(id); if(el) el.scrollIntoView({behavior:'smooth'}); }, 60);
   }
   function toggleMob() {
     document.getElementById('mobileNav').classList.toggle('open');
@@ -557,18 +678,17 @@
   }
   function openLightbox(src, alt) {
     document.getElementById('lightboxImg').src = src;
-    document.getElementById('lightboxImg').alt = alt || '';
+    document.getElementById('lightboxImg').alt = alt||'';
     document.getElementById('lightbox').classList.add('open');
   }
   function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
   document.getElementById('lightbox').addEventListener('click', function(e) { if(e.target===this) closeLightbox(); });
-
   let obs;
   function initObs() {
-    if (obs) obs.disconnect();
+    if(obs) obs.disconnect();
     obs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+      entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold:0.08, rootMargin:'0px 0px -40px 0px' });
     document.querySelectorAll('.fade-up').forEach(el => { el.classList.remove('visible'); obs.observe(el); });
   }
   initObs();

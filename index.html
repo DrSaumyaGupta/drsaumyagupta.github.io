@@ -59,8 +59,9 @@
     .hero-left { display:flex; flex-direction:column; justify-content:center; padding:7rem 4rem 5rem 8rem; position:relative; z-index:2; }
     .hero-tag { display:inline-flex; align-items:center; gap:0.6rem; font-family:'Syne',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--olive); margin-bottom:1.5rem; }
     .hero-tag::before { content:''; width:28px; height:2px; background:var(--olive); }
-    h1 { font-family:'DM Serif Display',serif; font-size:clamp(2.8rem,4.5vw,5rem); line-height:1.0; letter-spacing:-0.03em; color:var(--text); margin-bottom:0.3rem; }
-    h1 em { font-style:italic; color:var(--olive); }
+    h1 { font-family:'DM Serif Display',serif; font-size:clamp(2.4rem,3.6vw,4.2rem); line-height:1.05; letter-spacing:-0.03em; color:var(--olive); margin-bottom:0.3rem; white-space:nowrap; }
+    @media (max-width:700px) { h1 { white-space:normal; font-size:clamp(2rem,9vw,2.8rem); } }
+    h1 em { font-style:italic; color:var(--olive); } /* whole name is olive */
     .hero-subtitle { font-family:'DM Serif Display',serif; font-size:clamp(0.95rem,1.6vw,1.25rem); font-style:italic; color:var(--muted); margin-bottom:1.5rem; }
     .hero-mission { font-size:1rem; font-weight:300; color:var(--mid); line-height:1.75; max-width:460px; margin-bottom:2.5rem; border-left:3px solid var(--orange); padding-left:1.2rem; }
     .hero-ctas { display:flex; gap:0.8rem; flex-wrap:wrap; }
@@ -72,7 +73,14 @@
     .btn-outline:hover { border-color:var(--olive); color:var(--olive); transform:translateY(-2px); }
 
     /* PROFILE PIC */
-    .hero-right { display:flex; flex-direction:column; align-items:center; justify-content:center; padding:7rem 8rem 5rem 2rem; position:relative; z-index:2; gap:2rem; }
+    .hero-right { display:flex; flex-direction:column; align-items:center; justify-content:center; padding:7rem 8rem 5rem 2rem; position:relative; z-index:2; gap:2rem;
+      background-image: url("hero-bg.jpg");
+      background-size: cover;
+      background-position: center;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 30%);
+      mask-image: linear-gradient(to right, transparent 0%, black 30%); }
+    .hero-right::after { content:""; position:absolute; inset:0; background:rgba(250,250,247,0.82); z-index:1; }
+    .hero-right > * { position:relative; z-index:2; }
     .profile-pic-wrapper { position:relative; width:240px; height:240px; }
     .profile-pic-wrapper::before { content:''; position:absolute; top:12px; left:12px; right:-12px; bottom:-12px; border:2px solid var(--olive); opacity:0.25; border-radius:50%; }
     .profile-pic { width:240px; height:240px; border-radius:50%; object-fit:cover; border:4px solid var(--white); box-shadow:0 8px 40px rgba(0,0,0,0.12); display:block; }
@@ -296,8 +304,10 @@
   <div class="hero-bg"></div>
   <div class="hero-grid-pattern"></div>
   <div class="hero-left">
+    <!-- Postdoctoral tag hidden — uncomment below to show it again
     <span class="hero-tag">Postdoctoral Research Associate · UCF</span>
-    <h1>Dr. Saumya<br><em>Gupta</em></h1>
+    -->
+    <h1><em>Dr. Saumya Gupta</em></h1>
     <p class="hero-subtitle">Human-Centered Autonomy &amp; Mobility Researcher</p>
     <p class="hero-mission">I translate human behavior into systems that protect people — bridging engineering rigor, human psychology, and storytelling to shape urban mobility that is technically advanced, socially inclusive, and safe.</p>
     <div class="hero-ctas">
